@@ -1,0 +1,25 @@
+@use '../../utils/variables.scss' as vars;
+
+button {
+  width: 250px;
+  height: 50px;
+
+  cursor: pointer;
+
+  background-color: vars.$yellow;
+  color: black;
+  border-radius: vars.$radius;
+  border: none;
+  box-shadow: vars.$shadow;
+  font-weight: 600;
+
+  transition: all 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.8);
+  }
+}

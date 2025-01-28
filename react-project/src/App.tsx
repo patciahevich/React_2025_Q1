@@ -11,6 +11,11 @@ export type ServerResponse = {
   results: IPeople[];
 };
 
+type State = {
+  data: null | ServerResponse;
+  searchValue: string;
+};
+
 enum ENDPOINTS {
   People = 'people',
   Planets = 'planets',
@@ -21,23 +26,32 @@ enum ENDPOINTS {
 }
 
 class App extends React.Component {
-  state: { data: null | ServerResponse };
+  state: State;
   constructor(props: Record<string, never>) {
     super(props);
 
     this.state = {
       data: null,
+      searchValue: '',
     };
+
+    this.changeState = this.changeState.bind(this);
+    this.setState = this.setState.bind(this);
   }
 
   async getData() {
-    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?page=1`;
+    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${this.state.searchValue}`;
     try {
       const response = await fetch(baseLink, { method: 'GET' });
       this.setState({ data: await response.json() });
     } catch (e) {
       console.warn(e);
     }
+  }
+  changeState(currentValue: string) {
+    this.setState({ searchValue: currentValue }, () => {
+      this.getData();
+    });
   }
 
   componentDidMount() {
@@ -46,7 +60,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <Header />
+        <Header currentValue="" changeSearchValue={this.changeState} />
         <Main currentData={this.state.data} />
       </div>
     );

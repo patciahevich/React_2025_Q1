@@ -1,0 +1,39 @@
+@use '../../utils/variables.scss' as vars;
+
+header {
+  width: 100%;
+
+  padding: 0 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+  gap: 30px;
+}
+
+.logo {
+  width: 165px;
+  height: 70px;
+
+  background-image: url('../../assets/Star_Wars_Yellow_Logo.svg');
+  background-size: cover;
+}
+
+.search_form {
+  width: 70%;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  input {
+    width: 90%;
+    height: 50px;
+
+    font-size: 22px;
+    border-radius: vars.$radius;
+    padding: 5px 20px;
+    background-color: vars.$background;
+    color: black;
+  }
+}

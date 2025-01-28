@@ -26,11 +26,11 @@ class Main extends React.Component<MainProps> {
     }
 
     return (
-      <div className="main">
+      <main>
         {this.props.currentData.results.map((item, index) => (
           <Card data={item} key={index} />
         ))}
-      </div>
+      </main>
     );
   }
 }
