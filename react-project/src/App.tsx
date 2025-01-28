@@ -3,6 +3,7 @@ import './App.scss';
 import { IPeople } from 'swapi-ts/src/SWApi';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
+import Spinner from './components/Spinner/Spinner';
 
 export type ServerResponse = {
   count: number;
@@ -14,6 +15,7 @@ export type ServerResponse = {
 type State = {
   data: null | ServerResponse;
   searchValue: string;
+  isLoaded: boolean;
 };
 
 enum ENDPOINTS {
@@ -33,6 +35,7 @@ class App extends React.Component {
     this.state = {
       data: null,
       searchValue: '',
+      isLoaded: true,
     };
 
     this.changeState = this.changeState.bind(this);
@@ -40,10 +43,14 @@ class App extends React.Component {
   }
 
   async getData() {
+    this.setState({ isLoaded: false });
     const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${this.state.searchValue}`;
     try {
       const response = await fetch(baseLink, { method: 'GET' });
-      this.setState({ data: await response.json() });
+      this.setState({
+        data: await response.json(),
+        isLoaded: true,
+      });
     } catch (e) {
       console.warn(e);
     }
@@ -61,7 +68,11 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <Header currentValue="" changeSearchValue={this.changeState} />
-        <Main currentData={this.state.data} />
+        {this.state.isLoaded ? (
+          <Main currentData={this.state.data} />
+        ) : (
+          <Spinner />
+        )}
       </div>
     );
   }
