@@ -1,3 +1,4 @@
+@use './utils/variables.scss' as vars;
 * {
   margin: 0;
   box-sizing: border-box;
@@ -8,10 +9,42 @@
   height: 100vh;
 }
 
-.wrapper {
+.app {
+  position: relative;
   margin-top: 30px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .error {
+    position: fixed;
+    z-index: 2;
+    bottom: 50px;
+    right: 100px;
+  }
+}
+
+button {
+  width: 200px;
+  height: 60px;
+
+  cursor: pointer;
+
+  background-color: vars.$yellow;
+  color: black;
+  border-radius: vars.$radius;
+  border: none;
+  box-shadow: vars.$shadow;
+  font-weight: 600;
+
+  transition: all 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.8);
+  }
 }

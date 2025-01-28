@@ -4,6 +4,7 @@ import { IPeople } from 'swapi-ts/src/SWApi';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Spinner from './components/Spinner/Spinner';
+import ErrorButton from './components/ErrorButton/ErrorButton';
 
 export type ServerResponse = {
   count: number;
@@ -68,7 +69,8 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="wrapper">
+      <div className="app">
+        <ErrorButton />
         <Header
           currentValue={this.state.searchValue}
           changeSearchValue={this.changeState}

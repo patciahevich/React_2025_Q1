@@ -1,6 +1,5 @@
 import React, { FormEvent } from 'react';
 import './Header.scss';
-import Button from '../Button/Button';
 
 type SearchProps = {
   currentValue: string;
@@ -59,7 +58,7 @@ class Header extends React.Component<SearchProps, SearchState> {
             value={this.state.searchInputValue}
             onChange={this.handleChange}
           />
-          <Button type="submit" buttonName="Search" />
+          <button type="submit">Search</button>
         </form>
       </header>
     );
