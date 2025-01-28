@@ -46,6 +46,7 @@ class Header extends React.Component<SearchProps, SearchState> {
   render() {
     return (
       <header>
+        <h1>STAR WARS API</h1>
         <div className="logo" />
         <form
           className="search_form"

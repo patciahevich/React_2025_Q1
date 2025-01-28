@@ -6,22 +6,25 @@ header {
 
   padding: 0 60px;
 
-  display: flex;
-  justify-content: center;
-  align-items: space-around;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 'logo search';
+  align-items: center;
   gap: 30px;
-}
 
-.logo {
-  width: 165px;
-  height: 70px;
+  h1 {
+    grid-area: logo;
 
-  background-image: url('../../assets/Star_Wars_Yellow_Logo.svg');
-  background-size: cover;
+    font-size: 30px;
+    color: vars.$yellow;
+    font-family: 'Notable', serif;
+    letter-spacing: 0.2rem;
+  }
 }
 
 .search_form {
-  width: 70%;
+  grid-area: search;
 
   display: flex;
   align-items: center;
@@ -36,5 +39,17 @@ header {
     padding: 5px 20px;
     background-color: vars.$background;
     color: black;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  header {
+    height: 120px;
+    padding: 0 20px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'logo'
+      'search';
+    gap: 0;
   }
 }
