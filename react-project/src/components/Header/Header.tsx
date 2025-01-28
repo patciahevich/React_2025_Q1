@@ -31,10 +31,17 @@ class Header extends React.Component<SearchProps, SearchState> {
     event.preventDefault();
 
     const form = event.currentTarget.elements;
-    const currentSearchValue = form[0] as HTMLInputElement;
+    const currentSearchValue = (form[0] as HTMLInputElement).value;
 
-    this.props.changeSearchValue(currentSearchValue.value);
+    this.props.changeSearchValue(currentSearchValue);
+    localStorage.setItem('searchValue', currentSearchValue);
   };
+
+  componentDidUpdate(prevProps: SearchProps) {
+    if (prevProps.currentValue !== this.props.currentValue) {
+      this.setState({ searchInputValue: this.props.currentValue });
+    }
+  }
 
   render() {
     return (

@@ -45,6 +45,7 @@ class App extends React.Component {
   async getData() {
     this.setState({ isLoaded: false });
     const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${this.state.searchValue}`;
+
     try {
       const response = await fetch(baseLink, { method: 'GET' });
       this.setState({
@@ -62,12 +63,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getData();
+    const savedValue = localStorage.getItem('searchValue') ?? '';
+    this.changeState(savedValue);
   }
   render() {
     return (
       <div className="wrapper">
-        <Header currentValue="" changeSearchValue={this.changeState} />
+        <Header
+          currentValue={this.state.searchValue}
+          changeSearchValue={this.changeState}
+        />
         {this.state.isLoaded ? (
           <Main currentData={this.state.data} />
         ) : (
