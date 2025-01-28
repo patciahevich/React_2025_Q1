@@ -1,19 +1,37 @@
 import React from 'react';
+import type { ServerResponse } from '../../App';
 import './Main.scss';
-import { State } from '../../App';
+import Card from '../Card/Card';
 
 type MainProps = {
-  currentData: State | null;
+  currentData: ServerResponse | null;
 };
 
 class Main extends React.Component<MainProps> {
   render() {
-    console.log(this.props);
-    return this.props.currentData
-      ? this.props.currentData.results.map((item, index) => (
-          <p key={index}>{item.name}</p>
-        ))
-      : 'Main';
+    if (!this.props.currentData) {
+      return (
+        <div className="main">
+          <div className="clue"> Something went wrong. </div>
+        </div>
+      );
+    }
+
+    if (!this.props.currentData.results.length) {
+      return (
+        <div className="main">
+          <div className="clue"> Nothing was found. Try again!</div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="main">
+        {this.props.currentData.results.map((item, index) => (
+          <Card data={item} key={index} />
+        ))}
+      </div>
+    );
   }
 }
 

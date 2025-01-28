@@ -4,7 +4,7 @@ import { IPeople } from 'swapi-ts/src/SWApi';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 
-export type State = {
+export type ServerResponse = {
   count: number;
   next: string;
   previous: null;
@@ -21,7 +21,7 @@ enum ENDPOINTS {
 }
 
 class App extends React.Component {
-  state: { data: null | State };
+  state: { data: null | ServerResponse };
   constructor(props: Record<string, never>) {
     super(props);
 
@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   async getData() {
-    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/`;
+    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?page=1`;
     try {
       const response = await fetch(baseLink, { method: 'GET' });
       this.setState({ data: await response.json() });
@@ -40,7 +40,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     this.getData();
   }
   render() {

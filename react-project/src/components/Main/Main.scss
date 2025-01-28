@@ -1,0 +1,24 @@
+@use '../../utils/variables.scss' as vars;
+
+.main {
+  padding: 30px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.clue {
+  width: 50%;
+  height: max-content;
+
+  padding: 20px;
+
+  box-sizing: vars.$shadow;
+  background-color: vars.$background;
+  border-radius: vars.$radius;
+  font-size: 26px;
+  color: black;
+  text-align: center;
+}
