@@ -1,35 +1,56 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import React from 'react';
 import './App.scss';
+import { IPeople } from 'swapi-ts/src/SWApi';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
 
-function App() {
-  const [count, setCount] = useState(0);
+export type State = {
+  count: number;
+  next: string;
+  previous: null;
+  results: IPeople[];
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+enum ENDPOINTS {
+  People = 'people',
+  Planets = 'planets',
+  Films = 'films',
+  Species = 'species',
+  Vehicles = 'vehicles',
+  Starships = 'starships',
+}
+
+class App extends React.Component {
+  state: { data: null | State };
+  constructor(props: Record<string, never>) {
+    super(props);
+
+    this.state = {
+      data: null,
+    };
+  }
+
+  async getData() {
+    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/`;
+    try {
+      const response = await fetch(baseLink, { method: 'GET' });
+      this.setState({ data: await response.json() });
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  componentDidMount(): void {
+    this.getData();
+  }
+  render() {
+    return (
+      <div className="wrapper">
+        <Header />
+        <Main currentData={this.state.data} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+    );
+  }
 }
 
 export default App;
