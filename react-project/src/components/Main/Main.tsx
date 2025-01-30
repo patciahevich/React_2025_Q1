@@ -1,8 +1,8 @@
 import React from 'react';
-import type { ServerResponse } from '../../App';
 import './Main.scss';
-import Card from '../Card/Card';
-import Empty from '../Empty/Epmty';
+import { ServerResponse } from '../../utils/types';
+import PeopleCard from '../PeopleCard/PeopleCard';
+import Empty from '../Empty/Empty';
 
 type MainProps = {
   currentData: ServerResponse | null;
@@ -11,19 +11,15 @@ type MainProps = {
 class Main extends React.Component<MainProps> {
   render() {
     if (!this.props.currentData) {
-      return (
-        <div className="main">
-          <div className="clue"> Something went wrong. </div>
-        </div>
-      );
+      return <Empty text="Something went wrong!" imageName="error" />;
     }
 
     return !this.props.currentData.results.length ? (
-      <Empty />
+      <Empty text="Nothing was found." imageName="nothing" />
     ) : (
       <main>
-        {this.props.currentData.results.map((item, index) => (
-          <Card data={item} key={index} />
+        {this.props.currentData.results.map((item) => (
+          <PeopleCard data={item} key={item.created.toString()} />
         ))}
       </main>
     );

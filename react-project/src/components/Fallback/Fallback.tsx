@@ -1,10 +1,10 @@
 import React from 'react';
-import './Foolback.scss';
+import './Fallback.scss';
 
-class Foolback extends React.Component {
+class Fallback extends React.Component {
   render() {
     return (
-      <div className="foolback">
+      <div className="fallback">
         <div className="image" />
         <h2> WELCOME TO THE DARK SIDE</h2>
         <h6>(please, try to reload the page)</h6>
@@ -13,4 +13,4 @@ class Foolback extends React.Component {
   }
 }
 
-export default Foolback;
+export default Fallback;

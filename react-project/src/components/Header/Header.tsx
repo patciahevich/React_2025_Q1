@@ -2,8 +2,7 @@ import React, { FormEvent } from 'react';
 import './Header.scss';
 
 type SearchProps = {
-  currentValue: string;
-  changeSearchValue: (value: string) => void;
+  onSearchApply: (value: string) => void;
 };
 
 type SearchState = {
@@ -15,7 +14,7 @@ class Header extends React.Component<SearchProps, SearchState> {
     super(props);
 
     this.state = {
-      searchInputValue: this.props.currentValue,
+      searchInputValue: localStorage.getItem('searchValue') ?? '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,18 +28,9 @@ class Header extends React.Component<SearchProps, SearchState> {
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.currentTarget.elements;
-    const currentSearchValue = (form[0] as HTMLInputElement).value;
-
-    this.props.changeSearchValue(currentSearchValue);
-    localStorage.setItem('searchValue', currentSearchValue);
+    this.props.onSearchApply(this.state.searchInputValue);
+    localStorage.setItem('searchValue', this.state.searchInputValue);
   };
-
-  componentDidUpdate(prevProps: SearchProps) {
-    if (prevProps.currentValue !== this.props.currentValue) {
-      this.setState({ searchInputValue: this.props.currentValue });
-    }
-  }
 
   render() {
     return (

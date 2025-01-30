@@ -1,51 +1,33 @@
 import React from 'react';
 import './App.scss';
-import { IPeople } from 'swapi-ts/src/SWApi';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Spinner from './components/Spinner/Spinner';
 import ErrorButton from './components/ErrorButton/ErrorButton';
+import { ENDPOINTS, ServerResponse } from './utils/types';
 
-export type ServerResponse = {
-  count: number;
-  next: string;
-  previous: null;
-  results: IPeople[];
-};
-
-type State = {
+type AppState = {
   data: null | ServerResponse;
-  searchValue: string;
   isLoaded: boolean;
 };
 
-enum ENDPOINTS {
-  People = 'people',
-  Planets = 'planets',
-  Films = 'films',
-  Species = 'species',
-  Vehicles = 'vehicles',
-  Starships = 'starships',
-}
-
 class App extends React.Component {
-  state: State;
+  state: AppState;
   constructor(props: Record<string, never>) {
     super(props);
 
     this.state = {
       data: null,
-      searchValue: '',
       isLoaded: true,
     };
 
-    this.changeState = this.changeState.bind(this);
     this.setState = this.setState.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
-  async getData() {
+  async getData(searchValue: string) {
     this.setState({ isLoaded: false });
-    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${this.state.searchValue}`;
+    const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${searchValue}`;
 
     try {
       const response = await fetch(baseLink, { method: 'GET' });
@@ -55,26 +37,20 @@ class App extends React.Component {
       });
     } catch (e) {
       console.warn(e);
+      this.setState({ data: null, isLoaded: true });
     }
-  }
-  changeState(currentValue: string) {
-    this.setState({ searchValue: currentValue }, () => {
-      this.getData();
-    });
   }
 
   componentDidMount() {
     const savedValue = localStorage.getItem('searchValue') ?? '';
-    this.changeState(savedValue);
+    this.getData(savedValue);
   }
+
   render() {
     return (
       <div className="app">
         <ErrorButton />
-        <Header
-          currentValue={this.state.searchValue}
-          changeSearchValue={this.changeState}
-        />
+        <Header onSearchApply={this.getData} />
         {this.state.isLoaded ? (
           <Main currentData={this.state.data} />
         ) : (

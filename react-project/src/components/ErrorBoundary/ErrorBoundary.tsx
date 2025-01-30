@@ -1,5 +1,5 @@
 import React, { ErrorInfo, ReactNode } from 'react';
-import Foolback from '../Foolback/Foolback';
+import Fallback from '../Fallback/Fallback';
 
 type ErrorState = {
   hasError: boolean;
@@ -25,7 +25,7 @@ class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
   }
 
   render() {
-    return this.state.hasError ? <Foolback /> : this.props.children;
+    return this.state.hasError ? <Fallback /> : this.props.children;
   }
 }
 
