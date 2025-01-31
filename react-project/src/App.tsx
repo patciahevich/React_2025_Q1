@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
@@ -6,59 +6,38 @@ import Spinner from './components/Spinner/Spinner';
 import ErrorButton from './components/ErrorButton/ErrorButton';
 import { ENDPOINTS, ServerResponse } from './utils/types';
 
-type AppState = {
-  data: null | ServerResponse;
-  isLoaded: boolean;
-};
+function App() {
+  const [data, setData] = useState<null | ServerResponse>(null);
+  const [isLoaded, setIsLoaded] = useState(true);
 
-class App extends React.Component {
-  state: AppState;
-  constructor(props: Record<string, never>) {
-    super(props);
-
-    this.state = {
-      data: null,
-      isLoaded: true,
-    };
-
-    this.setState = this.setState.bind(this);
-    this.getData = this.getData.bind(this);
-  }
-
-  async getData(searchValue: string) {
-    this.setState({ isLoaded: false });
+  async function fetchData(searchValue: string) {
+    setIsLoaded(false);
     const baseLink = `https://swapi.dev/api/${ENDPOINTS.People}/?search=${searchValue}`;
 
     try {
       const response = await fetch(baseLink, { method: 'GET' });
-      this.setState({
-        data: await response.json(),
-        isLoaded: true,
-      });
+      const currentData = await response.json();
+      setData(currentData);
     } catch (e) {
       console.warn(e);
-      this.setState({ data: null, isLoaded: true });
+      setData(null);
+    } finally {
+      setIsLoaded(true);
     }
   }
 
-  componentDidMount() {
+  useEffect(() => {
     const savedValue = localStorage.getItem('searchValue') ?? '';
-    this.getData(savedValue);
-  }
+    fetchData(savedValue);
+  }, []);
 
-  render() {
-    return (
-      <div className="app">
-        <ErrorButton />
-        <Header onSearchApply={this.getData} />
-        {this.state.isLoaded ? (
-          <Main currentData={this.state.data} />
-        ) : (
-          <Spinner />
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="app">
+      <ErrorButton />
+      <Header onSearchApply={fetchData} />
+      {isLoaded ? <Main currentData={data} /> : <Spinner />}
+    </div>
+  );
 }
 
 export default App;

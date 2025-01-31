@@ -1,58 +1,40 @@
-import React, { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import './Header.scss';
 
 type SearchProps = {
   onSearchApply: (value: string) => void;
 };
 
-type SearchState = {
-  searchInputValue: string;
-};
+function Header(props: SearchProps) {
+  const [searchInputValue, setSearchInputValue] = useState(
+    localStorage.getItem('searchValue') ?? ''
+  );
 
-class Header extends React.Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-
-    this.state = {
-      searchInputValue: localStorage.getItem('searchValue') ?? '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchInputValue(event.target.value);
   }
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ searchInputValue: event.target.value });
-  }
-
-  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    this.props.onSearchApply(this.state.searchInputValue);
-    localStorage.setItem('searchValue', this.state.searchInputValue);
-  };
-
-  render() {
-    return (
-      <header>
-        <h1>STAR WARS API</h1>
-        <div className="logo" />
-        <form
-          className="search_form"
-          name="search-form"
-          onSubmit={this.handleSubmit}
-        >
-          <input
-            name="search"
-            placeholder="Search..."
-            value={this.state.searchInputValue}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </header>
-    );
+    props.onSearchApply(searchInputValue);
+    localStorage.setItem('searchValue', searchInputValue);
   }
+  return (
+    <header>
+      <h1>STAR WARS API</h1>
+      <div className="logo" />
+      <form className="search_form" name="search-form" onSubmit={handleSubmit}>
+        <input
+          name="search"
+          placeholder="Search..."
+          value={searchInputValue}
+          onChange={handleChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+    </header>
+  );
 }
 
 export default Header;
