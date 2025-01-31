@@ -1,0 +1,32 @@
+@use '../../utils/variables.scss' as vars;
+
+.spinner_wrapper {
+  width: 100%;
+  height: calc(100vh - 250px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 10px solid vars.$yellow;
+  border-radius: 50%;
+  border-top-color: vars.$main;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

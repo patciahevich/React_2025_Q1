@@ -1,0 +1,45 @@
+@use '../../utils/variables.scss' as vars;
+
+.empty-wrapper {
+  width: 100vw;
+  height: calc(100vh - 300px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty {
+  width: 600px;
+  height: 400px;
+  padding-bottom: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  background-size: cover;
+  border-radius: vars.$radius;
+
+  h2 {
+    width: 100%;
+
+    text-align: center;
+    background-color: rgba(black, 0.5);
+    color: vars.$yellow;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .empty {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .empty {
+    width: 250px;
+    height: 250px;
+  }
+}
