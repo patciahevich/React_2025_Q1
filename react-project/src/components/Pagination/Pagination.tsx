@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction } from 'react';
 import './Pagination.scss';
 
 type PaginationProps = {
-  nextPage: null | undefined | string;
-  prevPage: null | undefined | string;
+  nextPage: null | string;
+  prevPage: null | string;
   currentPage: number;
   changePage: Dispatch<SetStateAction<number>>;
 };

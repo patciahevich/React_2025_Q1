@@ -4,6 +4,7 @@ import { formatDate, getImage } from '../../utils/utils';
 
 type CardData = {
   data: IPeople;
+  handleClick: () => void;
 };
 
 function PeopleCard(props: CardData) {
@@ -25,6 +26,7 @@ function PeopleCard(props: CardData) {
           edited:
           {formatDate(props.data.edited)}
         </p>
+        <button onClick={props.handleClick}>Click</button>
       </div>
       <div
         className="image"

@@ -15,3 +15,8 @@ export enum ENDPOINTS {
   Vehicles = 'vehicles',
   Starships = 'starships',
 }
+export enum SEARCH_PARAMS {
+  Page = 'page',
+  Details = 'details',
+  Search = 'search',
+}

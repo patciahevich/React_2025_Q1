@@ -1,12 +1,29 @@
 @use '../../utils/variables.scss' as vars;
 
 main {
-  padding: 30px;
-
+  position: relative;
+  width: 100vw;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+
+  .cards {
+    padding: 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  .details {
+    background-color: aquamarine;
+
+    width: 0;
+
+    transition: all 0.7s;
+
+    &.active {
+      width: 50%;
+    }
+  }
 }
 
 .clue {
