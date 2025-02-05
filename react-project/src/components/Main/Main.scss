@@ -2,40 +2,47 @@
 
 main {
   position: relative;
-  width: 100vw;
+  width: 100%;
   display: flex;
 
   .cards {
+    width: auto;
     padding: 30px;
+    flex: 1;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+
+    transition: all 0.7 ease;
   }
+
   .details {
-    background-color: aquamarine;
+    position: sticky;
+    top: 0;
+    bottom: 0;
 
     width: 0;
+    max-height: 100vh;
+    overflow: hidden;
 
-    transition: all 0.7s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(vars.$yellow, 0.2);
+
+    transition: width 0.7s ease;
+
+    button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
 
     &.active {
-      width: 50%;
+      width: 30%;
     }
   }
-}
-
-.clue {
-  width: 50%;
-  height: max-content;
-
-  padding: 20px;
-
-  box-sizing: vars.$shadow;
-  background-color: vars.$background;
-  border-radius: vars.$radius;
-  font-size: 26px;
-  color: black;
-  text-align: center;
 }

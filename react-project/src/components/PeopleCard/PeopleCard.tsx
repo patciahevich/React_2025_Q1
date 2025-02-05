@@ -7,30 +7,30 @@ type CardData = {
   handleClick: () => void;
 };
 
-function PeopleCard(props: CardData) {
+function PeopleCard({ data, handleClick }: CardData) {
   return (
     <div className="card_wrapper">
       <div>
-        <p>name: {props.data.name}</p>
-        <p>birth year: {props.data.birth_year}</p>
-        <p>gender: {props.data.gender}</p>
-        <p>height: {props.data.height}</p>
-        <p>mass: {props.data.mass}</p>
-        <p>hair color: {props.data.hair_color}</p>
-        <p>eye color: {props.data.eye_color}</p>
+        <p>name: {data.name}</p>
+        <p>birth year: {data.birth_year}</p>
+        <p>gender: {data.gender}</p>
+        <p>height: {data.height}</p>
+        <p>mass: {data.mass}</p>
+        <p>hair color: {data.hair_color}</p>
+        <p>eye color: {data.eye_color}</p>
         <p>
           created:
-          {formatDate(props.data.created)}
+          {formatDate(data.created)}
         </p>
         <p>
           edited:
-          {formatDate(props.data.edited)}
+          {formatDate(data.edited)}
         </p>
-        <button onClick={props.handleClick}>Click</button>
+        <button onClick={handleClick}>Planet Info</button>
       </div>
       <div
         className="image"
-        style={{ backgroundImage: `url(${getImage(props.data.url)})` }}
+        style={{ backgroundImage: `url(${getImage(data.url)})` }}
       />
     </div>
   );

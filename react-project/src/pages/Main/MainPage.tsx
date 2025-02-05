@@ -75,23 +75,23 @@ function MainPage() {
       <ErrorButton />
       <Header onSearchApply={fetchData} />
       {isLoaded ? (
-        <Main
-          currentData={data}
-          details={details}
-          resetDetails={resetDetails}
-          addDetails={addDetails}
-        />
+        <>
+          <Main
+            currentData={data}
+            details={details}
+            resetDetails={resetDetails}
+            addDetails={addDetails}
+          />
+          <Pagination
+            changePage={setPage}
+            currentPage={page}
+            prevPage={data?.previous ?? null}
+            nextPage={data?.next ?? null}
+          />
+        </>
       ) : (
         <Spinner />
       )}
-      {data ? (
-        <Pagination
-          changePage={setPage}
-          currentPage={page}
-          prevPage={data?.previous ?? null}
-          nextPage={data?.next ?? null}
-        />
-      ) : null}
     </div>
   );
 }

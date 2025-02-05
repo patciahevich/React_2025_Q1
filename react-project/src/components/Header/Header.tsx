@@ -9,7 +9,7 @@ function getFromLocalStorage() {
   return localStorage.getItem('searchValue') ?? '';
 }
 
-function Header(props: SearchProps) {
+function Header({ onSearchApply }: SearchProps) {
   const [searchInputValue, setSearchInputValue] = useState(
     getFromLocalStorage()
   );
@@ -20,7 +20,7 @@ function Header(props: SearchProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    props.onSearchApply(searchInputValue);
+    onSearchApply(searchInputValue);
     localStorage.setItem('searchValue', searchInputValue);
   }
   return (

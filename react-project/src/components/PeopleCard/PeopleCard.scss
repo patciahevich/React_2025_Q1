@@ -20,6 +20,12 @@
     background-size: cover;
     border-radius: vars.$radius;
   }
+
+  button {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+  }
 }
 
 @media screen and (max-width: 580px) {
