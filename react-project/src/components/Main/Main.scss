@@ -31,7 +31,7 @@ main {
     justify-content: center;
     align-items: center;
 
-    background-color: rgba(vars.$yellow, 0.2);
+    background-color: rgba(vars.$yellow, 0.7);
 
     transition: width 0.7s ease;
 
@@ -39,6 +39,9 @@ main {
       position: absolute;
       top: 20px;
       right: 20px;
+
+      width: 100px;
+      height: 40px;
     }
 
     &.active {

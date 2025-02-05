@@ -35,6 +35,13 @@ function Main({ currentData, details, resetDetails, addDetails }: MainProps) {
       getUrl();
     }
   });
+
+  function handleClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.button')) {
+      resetDetails();
+    }
+  }
   if (!currentData) {
     return <Empty text="Something went wrong!" imageName="error" />;
   }
@@ -43,7 +50,7 @@ function Main({ currentData, details, resetDetails, addDetails }: MainProps) {
     <Empty text="Nothing was found." imageName="nothing" />
   ) : (
     <main>
-      <section className="cards">
+      <section className="cards" onClick={(e) => handleClick(e)}>
         {currentData.results.map((person) => (
           <PeopleCard
             data={person}

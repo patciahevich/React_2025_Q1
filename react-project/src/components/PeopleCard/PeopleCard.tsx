@@ -26,7 +26,9 @@ function PeopleCard({ data, handleClick }: CardData) {
           edited:
           {formatDate(data.edited)}
         </p>
-        <button onClick={handleClick}>Planet Info</button>
+        <button className="button" onClick={handleClick}>
+          Planet Info
+        </button>
       </div>
       <div
         className="image"
