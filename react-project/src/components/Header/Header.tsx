@@ -5,9 +5,13 @@ type SearchProps = {
   onSearchApply: (value: string) => void;
 };
 
+function getFromLocalStorage() {
+  return localStorage.getItem('searchValue') ?? '';
+}
+
 function Header(props: SearchProps) {
   const [searchInputValue, setSearchInputValue] = useState(
-    localStorage.getItem('searchValue') ?? ''
+    getFromLocalStorage()
   );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -16,7 +20,6 @@ function Header(props: SearchProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     props.onSearchApply(searchInputValue);
     localStorage.setItem('searchValue', searchInputValue);
   }
