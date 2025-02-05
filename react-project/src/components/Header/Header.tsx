@@ -1,18 +1,13 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import './Header.scss';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 type SearchProps = {
   onSearchApply: (value: string) => void;
 };
 
-function getFromLocalStorage() {
-  return localStorage.getItem('searchValue') ?? '';
-}
-
 function Header({ onSearchApply }: SearchProps) {
-  const [searchInputValue, setSearchInputValue] = useState(
-    getFromLocalStorage()
-  );
+  const [searchInputValue, setSearchInputValue] = useLocalStorage();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchInputValue(event.target.value);
@@ -21,7 +16,7 @@ function Header({ onSearchApply }: SearchProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     onSearchApply(searchInputValue);
-    localStorage.setItem('searchValue', searchInputValue);
+    setSearchInputValue(searchInputValue);
   }
   return (
     <header>
