@@ -9,17 +9,21 @@ function useLocalStorage() {
       return storedValue ? JSON.parse(storedValue) : '';
     } catch (error) {
       console.error('Error: ', error);
-      return '';
+      return;
     }
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(value));
+      if (value) {
+        localStorage.setItem(KEY, JSON.stringify(value));
+      } else {
+        localStorage.removeItem(KEY);
+      }
     } catch (error) {
       console.error('Error :', error);
     }
-  }, []);
+  }, [value]);
 
   return [value, setValue] as const;
 }

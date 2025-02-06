@@ -1,40 +1,26 @@
 import './Main.scss';
-import { ServerResponse } from '../../utils/types';
+import { SEARCH_PARAMS, ServerResponse } from '../../utils/types';
 import PeopleCard from '../PeopleCard/PeopleCard';
 import Empty from '../Empty/Empty';
 import Details from '../Details/Details';
-import { useEffect, useState } from 'react';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
 type MainProps = {
   currentData: ServerResponse | null;
-  details: null | string;
-  resetDetails: () => void;
-  addDetails: (name: string) => void;
 };
 
-function Main({ currentData, details, resetDetails, addDetails }: MainProps) {
-  const [url, setUrl] = useState<null | string>(null);
+function Main({ currentData }: MainProps) {
+  const { searchParams, setParam, removeParam } = useQueryParams();
 
-  async function getUrl() {
-    try {
-      const response = await fetch(
-        `https://swapi.dev/api/people/?search=${details}`
-      );
-      const data: ServerResponse = await response.json();
+  const details = searchParams.get(SEARCH_PARAMS.Details);
 
-      if (data && data.results.length > 0) {
-        const url = data.results[0].homeworld as string;
-        setUrl(url);
-      }
-    } catch (e) {
-      console.warn(e);
-    }
+  function addDetails(name: string) {
+    setParam(SEARCH_PARAMS.Details, name);
   }
-  useEffect(() => {
-    if (details) {
-      getUrl();
-    }
-  });
+
+  function resetDetails() {
+    removeParam(SEARCH_PARAMS.Details);
+  }
 
   function handleClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
     const target = e.target as HTMLElement;
@@ -61,7 +47,7 @@ function Main({ currentData, details, resetDetails, addDetails }: MainProps) {
       </section>
 
       <section className={details ? 'details active' : 'details'}>
-        {url && details ? <Details url={url} name={details} /> : null}
+        {details ? <Details /> : null}
 
         <button onClick={resetDetails}>Close</button>
       </section>

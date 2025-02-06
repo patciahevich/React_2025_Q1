@@ -1,23 +1,26 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import './Header.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
-type SearchProps = {
-  onSearchApply: (value: string) => void;
-};
-
-function Header({ onSearchApply }: SearchProps) {
-  const [searchInputValue, setSearchInputValue] = useLocalStorage();
+function Header() {
+  const [savedValue, setSavedValue] = useLocalStorage();
+  const { setParams } = useQueryParams();
+  const [searchValue, setSearchValue] = useState(savedValue);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchInputValue(event.target.value);
+    setSearchValue(event.target.value);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onSearchApply(searchInputValue);
-    setSearchInputValue(searchInputValue);
+    setParams({
+      page: '1',
+      search: searchValue,
+    });
+    setSavedValue(searchValue);
   }
+
   return (
     <header>
       <h1>STAR WARS API</h1>
@@ -26,7 +29,7 @@ function Header({ onSearchApply }: SearchProps) {
         <input
           name="search"
           placeholder="Search..."
-          value={searchInputValue}
+          value={searchValue}
           onChange={handleChange}
         />
         <button type="submit">Search</button>

@@ -20,3 +20,9 @@ export enum SEARCH_PARAMS {
   Details = 'details',
   Search = 'search',
 }
+
+export type QueryParams = {
+  search: string;
+  page: string;
+  details?: string;
+};
