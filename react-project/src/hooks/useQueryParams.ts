@@ -1,8 +1,7 @@
 import { useSearchParams } from 'react-router';
-import { QueryParams } from '../utils/types';
 
-export function useQueryParams(params?: QueryParams) {
-  const [searchParams, setSearchParams] = useSearchParams(params);
+export function useQueryParams() {
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const setParam = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams);

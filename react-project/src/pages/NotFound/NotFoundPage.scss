@@ -1,0 +1,28 @@
+.not-found-wrapper {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #536f53;
+
+  .not-found {
+    width: 400px;
+    height: max-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    .image {
+      width: 100%;
+      height: 350px;
+
+      background-image: url(../../assets/star.png);
+      background-size: cover;
+    }
+  }
+}

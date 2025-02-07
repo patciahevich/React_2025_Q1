@@ -1,12 +1,15 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import './Header.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 
 function Header() {
   const [savedValue, setSavedValue] = useLocalStorage();
-  const { setParams } = useQueryParams();
-  const [searchValue, setSearchValue] = useState(savedValue);
+  const { searchParams, setParams } = useQueryParams();
+  const initialSearch = searchParams.get('search');
+  const [searchValue, setSearchValue] = useState(
+    initialSearch ?? savedValue ?? ''
+  );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
@@ -20,6 +23,15 @@ function Header() {
     });
     setSavedValue(searchValue);
   }
+
+  useEffect(() => {
+    if (initialSearch === null) {
+      setParams({
+        page: '1',
+        search: searchValue,
+      });
+    }
+  }, []);
 
   return (
     <header>
