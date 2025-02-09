@@ -1,6 +1,6 @@
 import { IPeople } from 'swapi-ts/src/SWApi';
 import './PeopleCard.scss';
-import { formatDate, getImage } from '../../utils/utils';
+import { getImage } from '../../utils/utils';
 
 type CardData = {
   data: IPeople;
@@ -18,14 +18,6 @@ function PeopleCard({ data, handleClick }: CardData) {
         <p>mass: {data.mass}</p>
         <p>hair color: {data.hair_color}</p>
         <p>eye color: {data.eye_color}</p>
-        <p>
-          created:
-          {formatDate(data.created)}
-        </p>
-        <p>
-          edited:
-          {formatDate(data.edited)}
-        </p>
         <button className="button" onClick={handleClick}>
           Planet Info
         </button>

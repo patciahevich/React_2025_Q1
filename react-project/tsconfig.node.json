@@ -20,5 +20,6 @@
     "noFallthroughCasesInSwitch": true
     // "noUncheckedSideEffectImports": true
   },
+  "types": ["vite/client", "@testing-library/jest-dom"],
   "include": ["vite.config.ts"]
 }

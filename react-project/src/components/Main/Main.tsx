@@ -36,7 +36,11 @@ function Main({ currentData }: MainProps) {
     <Empty text="Nothing was found." imageName="nothing" />
   ) : (
     <main>
-      <section className="cards" onClick={(e) => handleClick(e)}>
+      <section
+        data-testid="main"
+        className="cards"
+        onClick={(e) => handleClick(e)}
+      >
         {currentData.results.map((person) => (
           <PeopleCard
             data={person}
