@@ -1,30 +1,20 @@
-import React from 'react';
+import { useState } from 'react';
 
-type ErrorButtonState = {
-  throwError: boolean;
-};
+function Button() {
+  const [throwError, setThrowError] = useState(false);
 
-class Button extends React.Component {
-  state: ErrorButtonState;
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      throwError: false,
-    };
+  function handleClick() {
+    setThrowError(true);
   }
-  handleClick = () => {
-    this.setState({ throwError: true });
-  };
 
-  render() {
-    if (this.state.throwError) {
-      throw new Error('New Error');
-    }
-    return (
-      <button type="button" onClick={this.handleClick} className="error">
-        Throw Error
-      </button>
-    );
+  if (throwError) {
+    throw new Error('New Error');
   }
+
+  return (
+    <button type="button" onClick={handleClick} className="error">
+      Throw Error
+    </button>
+  );
 }
 export default Button;

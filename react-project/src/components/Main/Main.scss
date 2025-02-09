@@ -1,24 +1,51 @@
 @use '../../utils/variables.scss' as vars;
 
 main {
-  padding: 30px;
-
+  position: relative;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
 
-.clue {
-  width: 50%;
-  height: max-content;
+  .cards {
+    width: auto;
+    padding: 30px;
+    flex: 1;
 
-  padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
 
-  box-sizing: vars.$shadow;
-  background-color: vars.$background;
-  border-radius: vars.$radius;
-  font-size: 26px;
-  color: black;
-  text-align: center;
+    transition: all 0.7 ease;
+  }
+
+  .details {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+
+    width: 0;
+    max-height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(vars.$yellow, 0.7);
+
+    transition: width 0.7s ease;
+
+    button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      width: 100px;
+      height: 40px;
+    }
+
+    &.active {
+      width: 30%;
+    }
+  }
 }
