@@ -1,0 +1,32 @@
+@use '../../utils/variables.scss' as vars;
+
+.flyout {
+  z-index: 2;
+
+  width: max-content;
+  height: 100px;
+
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  background-color: rgba(black, 0.5);
+  border-radius: vars.$radius;
+
+  p {
+    color: white;
+    font-size: 20px;
+    font-family: vars.$jedi;
+  }
+
+  button {
+    width: 120px;
+    height: 40px;
+  }
+}

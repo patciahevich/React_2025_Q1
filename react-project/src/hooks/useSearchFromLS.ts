@@ -17,8 +17,6 @@ function useSearchFromLS() {
     });
   }, []);
 
-  console.log(initialValue);
-
   return { initialValue };
 }
 

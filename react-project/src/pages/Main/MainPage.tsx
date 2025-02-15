@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import { ServerResponse, ENDPOINTS } from '../../utils/types';
 import './MainPage.scss';
 import { useSearchParams } from 'react-router';
+import Flyout from '../../components/Flyout/Flyout';
 
 function MainPage() {
   const [searchParams] = useSearchParams();
@@ -45,6 +46,7 @@ function MainPage() {
   return (
     <div className="main-page">
       <ErrorButton />
+      <Flyout />
       <Header />
       {isLoaded ? (
         <>

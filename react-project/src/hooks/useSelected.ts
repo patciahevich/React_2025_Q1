@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { toggleSelectedItem } from '../store/selectedSlice';
+import { toggleSelectedItem, resetSelectedItems } from '../store/selectedSlice';
 import { IPeople } from 'swapi-ts/src/SWApi';
 import { useAppSelector } from '../store/hooks/useAppSelector';
 
@@ -15,7 +15,11 @@ function useSelected() {
   const isSelected = (item: IPeople) =>
     selectedItems.some((people) => people.name === item.name);
 
-  return { selectedItems, toggleItem, isSelected };
+  const resetAll = () => {
+    dispatch(resetSelectedItems());
+  };
+
+  return { selectedItems, toggleItem, isSelected, resetAll };
 }
 
 export default useSelected;
