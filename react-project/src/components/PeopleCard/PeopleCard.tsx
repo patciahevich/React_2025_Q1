@@ -1,6 +1,7 @@
 import { IPeople } from 'swapi-ts/src/SWApi';
 import './PeopleCard.scss';
 import { getImage } from '../../utils/utils';
+import useSelected from '../../hooks/useSelected';
 
 type CardData = {
   data: IPeople;
@@ -8,8 +9,16 @@ type CardData = {
 };
 
 function PeopleCard({ data, handleClick }: CardData) {
+  const { isSelected, toggleItem } = useSelected();
+
+  function handleSelect() {
+    toggleItem(data);
+  }
   return (
-    <div className="card_wrapper">
+    <div
+      className={isSelected(data) ? 'card selected' : 'card'}
+      onClick={handleSelect}
+    >
       <div>
         <p>name: {data.name}</p>
         <p>birth year: {data.birth_year}</p>
