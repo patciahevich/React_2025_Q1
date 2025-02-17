@@ -14,7 +14,7 @@ function Main() {
   const search = searchParams.get('search') ?? '';
   const details = searchParams.get(SEARCH_PARAMS.Details);
 
-  const { data, error, isLoading } = useGetPeopleQuery({
+  const { data, error, isFetching } = useGetPeopleQuery({
     page: page.toString(),
     search,
   });
@@ -34,7 +34,7 @@ function Main() {
     }
   }
 
-  if (isLoading) return <Spinner />;
+  if (isFetching) return <Spinner />;
   if (error || !data)
     return <Empty text="Something went wrong!" imageName="error" />;
 

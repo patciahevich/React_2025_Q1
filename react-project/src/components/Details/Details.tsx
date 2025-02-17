@@ -8,23 +8,24 @@ function Details() {
   const { searchParams } = useQueryParams();
   const person = searchParams.get(SEARCH_PARAMS.Details);
 
-  const { data: peopleData, isLoading: isPersonLoading } = useGetPersonQuery(
-    person,
-    {
-      skip: !person,
-    }
-  );
+  const {
+    data: peopleData,
+
+    isFetching: isPeopleFetching,
+  } = useGetPersonQuery(person, {
+    skip: !person,
+  });
 
   const personHomeworld = peopleData?.results?.[0]?.homeworld;
 
-  const { data: planetData, isLoading: isPlanetLoading } = useGetPlanetQuery(
+  const { data: planetData, isFetching: isPlanetFetching } = useGetPlanetQuery(
     personHomeworld,
     {
       skip: !personHomeworld,
     }
   );
 
-  if (isPersonLoading || isPlanetLoading) {
+  if (isPeopleFetching || isPlanetFetching) {
     return <Spinner />;
   }
 
