@@ -2,7 +2,7 @@ import useSelected from '../../hooks/useSelected';
 import './Flyout.scss';
 
 function Flyout() {
-  const { selectedItems, resetAll } = useSelected();
+  const { selectedItems, resetAll, downloadAll } = useSelected();
 
   if (!selectedItems.length) return null;
 
@@ -10,7 +10,7 @@ function Flyout() {
     <div className="flyout">
       <button onClick={resetAll}>Unselect all</button>
       <p>{selectedItems.length}</p>
-      <button>Download</button>
+      <button onClick={downloadAll}>Download</button>
     </div>
   );
 }

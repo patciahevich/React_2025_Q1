@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPeople } from 'swapi-ts/src/SWApi';
+import { convertToCSV } from '../utils/utils';
 
 interface SelectedSlice {
   selectedItems: Array<IPeople>;
@@ -28,8 +29,22 @@ const SelectedSlice = createSlice({
     resetSelectedItems: (state) => {
       state.selectedItems = [];
     },
+
+    downloadSelectedItems: (state) => {
+      const csvData = convertToCSV(state.selectedItems);
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `${state.selectedItems.length}_people.csv`);
+      link.click();
+
+      URL.revokeObjectURL(url);
+    },
   },
 });
 
-export const { toggleSelectedItem, resetSelectedItems } = SelectedSlice.actions;
+export const { toggleSelectedItem, resetSelectedItems, downloadSelectedItems } =
+  SelectedSlice.actions;
 export default SelectedSlice.reducer;
