@@ -11,13 +11,18 @@ type CardData = {
 function PeopleCard({ data, handleClick }: CardData) {
   const { isSelected, toggleItem } = useSelected();
 
-  function handleSelect() {
+  function handleSelect(e: React.MouseEvent<HTMLDivElement>) {
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON') {
+      return;
+    }
+
     toggleItem(data);
   }
   return (
     <div
       className={isSelected(data) ? 'card selected' : 'card'}
-      onClick={handleSelect}
+      onClick={(e) => handleSelect(e)}
     >
       <div>
         <p>name: {data.name}</p>
