@@ -11,7 +11,16 @@ export const swapiApi = createApi({
       query: ({ page, search }) =>
         `${ENDPOINTS.People}?page=${page}&search=${search}`,
     }),
+
+    getPerson: builder.query({
+      query: (name) => `${ENDPOINTS.People}?search=${name}`,
+    }),
+
+    getPlanet: builder.query({
+      query: (url: string) => url,
+    }),
   }),
 });
 
-export const { useGetPeopleQuery } = swapiApi;
+export const { useGetPeopleQuery, useGetPersonQuery, useGetPlanetQuery } =
+  swapiApi;
