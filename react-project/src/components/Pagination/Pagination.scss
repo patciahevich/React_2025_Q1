@@ -11,6 +11,15 @@
   align-items: center;
   gap: 50px;
 
+  &.dark .current {
+    color: white;
+  }
+
+  &.dark button:disabled,
+  &.dark button[disabled] {
+    color: rgb(37, 32, 32);
+  }
+
   .current {
     font-family: vars.$jedi;
     font-size: 30px;

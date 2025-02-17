@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode, useEffect } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const KEY = 'themeValue';
@@ -17,12 +17,17 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [initialValue] = useLocalStorage(KEY, 'light');
+  const [initialValue, setValue] = useLocalStorage(KEY, 'light');
   const [theme, setTheme] = useState<ThemeContextType['theme']>(initialValue);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setValue(theme);
   };
+
+  useEffect(() => {
+    setValue(theme);
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
