@@ -1,6 +1,5 @@
 import { IPeople } from 'swapi-ts/src/SWApi';
 import './PeopleCard.scss';
-import { getImage } from '../../utils/utils';
 import useSelected from '../../hooks/useSelected';
 
 type CardData = {
@@ -36,10 +35,7 @@ function PeopleCard({ data, handleClick }: CardData) {
           Planet Info
         </button>
       </div>
-      <div
-        className="image"
-        style={{ backgroundImage: `url(${getImage(data.url)})` }}
-      />
+      <div className="image" />
     </div>
   );
 }
