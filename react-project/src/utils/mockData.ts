@@ -1,4 +1,4 @@
-import { ServerResponse } from '../../utils/types';
+import { ServerResponse } from './types';
 
 const mockData: ServerResponse = {
   count: 82,

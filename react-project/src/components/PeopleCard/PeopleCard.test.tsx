@@ -1,5 +1,4 @@
 import { configureStore, Store, UnknownAction } from '@reduxjs/toolkit';
-import { mockData } from './mockPeople';
 import PeopleCard from './PeopleCard';
 import { fireEvent, render, screen } from '@testing-library/react';
 import selectedReducer from '../../store/selectedSlice';
@@ -7,8 +6,10 @@ import { Provider } from 'react-redux';
 import { Mock, vi } from 'vitest';
 import { BrowserRouter } from 'react-router';
 import useSelected from '../../hooks/useSelected';
+import mockData from '../../utils/mockData';
 
 let store: Store<unknown, UnknownAction, unknown>;
+const cardItem = mockData.results[0];
 
 vi.mock(import('../../hooks/useSelected'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -35,21 +36,21 @@ describe('Tests for the Card component: ', () => {
 
     render(
       <Provider store={store}>
-        <PeopleCard data={mockData} handleClick={() => {}} />
+        <PeopleCard data={cardItem} handleClick={() => {}} />
       </Provider>
     );
-    expect(screen.getByText(new RegExp(mockData.name))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(cardItem.name))).toBeInTheDocument();
     expect(
-      screen.getByText(new RegExp(mockData.birth_year))
+      screen.getByText(new RegExp(cardItem.birth_year))
     ).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(mockData.gender))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(mockData.height))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(mockData.mass))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(cardItem.gender))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(cardItem.height))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(cardItem.mass))).toBeInTheDocument();
     expect(
-      screen.getByText(new RegExp(mockData.hair_color))
+      screen.getByText(new RegExp(cardItem.hair_color))
     ).toBeInTheDocument();
     expect(
-      screen.getByText(new RegExp(mockData.eye_color))
+      screen.getByText(new RegExp(cardItem.eye_color))
     ).toBeInTheDocument();
   });
 
@@ -65,8 +66,8 @@ describe('Tests for the Card component: ', () => {
       <BrowserRouter>
         <Provider store={store}>
           <PeopleCard
-            data={mockData}
-            handleClick={() => addDetails(mockData.name)}
+            data={cardItem}
+            handleClick={() => addDetails(cardItem.name)}
           />
         </Provider>
       </BrowserRouter>
@@ -75,7 +76,7 @@ describe('Tests for the Card component: ', () => {
     const button = screen.getByText(new RegExp('Planet Info'));
     fireEvent.click(button);
 
-    expect(addDetails).toHaveBeenCalledWith(mockData.name);
+    expect(addDetails).toHaveBeenCalledWith(cardItem.name);
   });
 
   it('Add item to the store by clicking to the card', () => {
@@ -89,15 +90,15 @@ describe('Tests for the Card component: ', () => {
     render(
       <BrowserRouter>
         <Provider store={store}>
-          <PeopleCard data={mockData} handleClick={() => {}} />
+          <PeopleCard data={cardItem} handleClick={() => {}} />
         </Provider>
       </BrowserRouter>
     );
 
-    const card = screen.getByText(new RegExp(mockData.name));
+    const card = screen.getByText(new RegExp(cardItem.name));
 
     fireEvent.click(card);
-    expect(mockToggleItem).toHaveBeenCalledWith(mockData);
+    expect(mockToggleItem).toHaveBeenCalledWith(cardItem);
   });
 
   it('Should check if the item is in the store', () => {
@@ -111,11 +112,11 @@ describe('Tests for the Card component: ', () => {
     render(
       <BrowserRouter>
         <Provider store={store}>
-          <PeopleCard data={mockData} handleClick={() => {}} />
+          <PeopleCard data={cardItem} handleClick={() => {}} />
         </Provider>
       </BrowserRouter>
     );
 
-    expect(mockIsSelected).toHaveBeenCalledWith(mockData);
+    expect(mockIsSelected).toHaveBeenCalledWith(cardItem);
   });
 });

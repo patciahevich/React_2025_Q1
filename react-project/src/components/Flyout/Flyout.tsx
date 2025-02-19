@@ -9,11 +9,11 @@ function Flyout() {
   if (!selectedItems.length) return null;
 
   return (
-    <div className={`${theme} flyout`}>
+    <aside className={`${theme} flyout`}>
       <button onClick={resetAll}>Unselect all</button>
       <p>{selectedItems.length}</p>
       <button onClick={downloadAll}>Download</button>
-    </div>
+    </aside>
   );
 }
 

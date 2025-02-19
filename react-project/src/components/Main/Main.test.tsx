@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import Main from './Main';
-import mockData from './mockData';
 import { MemoryRouter } from 'react-router';
 import { ServerResponse } from '../../utils/types';
 import { Mock, vi } from 'vitest';
@@ -9,6 +8,7 @@ import selectedReducer from '../../store/selectedSlice';
 import { Provider } from 'react-redux';
 import { useGetPeopleQuery } from '../../api/swapiApi';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
+import mockData from '../../utils/mockData';
 
 vi.mock('../../api/swapiApi', () => ({
   useGetPeopleQuery: vi.fn(),
