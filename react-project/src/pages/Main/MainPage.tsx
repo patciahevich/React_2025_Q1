@@ -7,6 +7,7 @@ import { useTheme } from '../../hooks/useTheme';
 
 function MainPage() {
   const { theme } = useTheme();
+
   return (
     <div className={`${theme} main-page`}>
       <ErrorButton />

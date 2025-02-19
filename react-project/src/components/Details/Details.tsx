@@ -8,13 +8,12 @@ function Details() {
   const { searchParams } = useQueryParams();
   const person = searchParams.get(SEARCH_PARAMS.Details);
 
-  const {
-    data: peopleData,
-
-    isFetching: isPeopleFetching,
-  } = useGetPersonQuery(person, {
-    skip: !person,
-  });
+  const { data: peopleData, isFetching: isPeopleFetching } = useGetPersonQuery(
+    person,
+    {
+      skip: !person,
+    }
+  );
 
   const personHomeworld = peopleData?.results?.[0]?.homeworld;
 

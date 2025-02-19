@@ -1,40 +1,43 @@
-import { IPeople } from 'swapi-ts/src/SWApi';
+import { configureStore, Store, UnknownAction } from '@reduxjs/toolkit';
+import { mockData } from './mockPeople';
 import PeopleCard from './PeopleCard';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import selectedReducer from '../../store/selectedSlice';
+import { Provider } from 'react-redux';
+import { Mock, vi } from 'vitest';
+import { BrowserRouter } from 'react-router';
+import useSelected from '../../hooks/useSelected';
 
-const mockData: IPeople = {
-  name: 'Luke Skywalker',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: 'https://swapi.dev/api/planets/1/',
-  films: [
-    'https://swapi.dev/api/films/1/',
-    'https://swapi.dev/api/films/2/',
-    'https://swapi.dev/api/films/3/',
-    'https://swapi.dev/api/films/6/',
-  ],
-  species: [],
-  vehicles: [
-    'https://swapi.dev/api/vehicles/14/',
-    'https://swapi.dev/api/vehicles/30/',
-  ],
-  starships: [
-    'https://swapi.dev/api/starships/12/',
-    'https://swapi.dev/api/starships/22/',
-  ],
-  created: new Date('2014-12-09T13:50:51.644000Z'),
-  edited: new Date('2014-12-20T21:17:56.891000Z'),
-  url: 'https://swapi.dev/api/people/1/',
-};
+let store: Store<unknown, UnknownAction, unknown>;
+
+vi.mock(import('../../hooks/useSelected'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    default: vi.fn(),
+  };
+});
+
+beforeAll(() => {
+  store = configureStore({
+    reducer: {
+      selected: selectedReducer,
+    },
+  });
+});
 
 describe('Tests for the Card component: ', () => {
   it('Renders the relevant card data.', () => {
-    render(<PeopleCard data={mockData} handleClick={() => {}} />);
+    (useSelected as Mock).mockReturnValue({
+      toggleItem: vi.fn(),
+      isSelected: vi.fn(),
+    });
+
+    render(
+      <Provider store={store}>
+        <PeopleCard data={mockData} handleClick={() => {}} />
+      </Provider>
+    );
     expect(screen.getByText(new RegExp(mockData.name))).toBeInTheDocument();
     expect(
       screen.getByText(new RegExp(mockData.birth_year))
@@ -48,5 +51,71 @@ describe('Tests for the Card component: ', () => {
     expect(
       screen.getByText(new RegExp(mockData.eye_color))
     ).toBeInTheDocument();
+  });
+
+  it('Add name to the query parameters by clicking the button', () => {
+    const addDetails = vi.fn();
+
+    (useSelected as Mock).mockReturnValue({
+      toggleItem: vi.fn(),
+      isSelected: vi.fn(),
+    });
+
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <PeopleCard
+            data={mockData}
+            handleClick={() => addDetails(mockData.name)}
+          />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const button = screen.getByText(new RegExp('Planet Info'));
+    fireEvent.click(button);
+
+    expect(addDetails).toHaveBeenCalledWith(mockData.name);
+  });
+
+  it('Add item to the store by clicking to the card', () => {
+    const mockToggleItem = vi.fn();
+
+    (useSelected as Mock).mockReturnValue({
+      toggleItem: mockToggleItem,
+      isSelected: vi.fn(),
+    });
+
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <PeopleCard data={mockData} handleClick={() => {}} />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    const card = screen.getByText(new RegExp(mockData.name));
+
+    fireEvent.click(card);
+    expect(mockToggleItem).toHaveBeenCalledWith(mockData);
+  });
+
+  it('Should check if the item is in the store', () => {
+    const mockIsSelected = vi.fn().mockReturnValue(false);
+
+    (useSelected as Mock).mockReturnValue({
+      toggleItem: vi.fn(),
+      isSelected: mockIsSelected,
+    });
+
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <PeopleCard data={mockData} handleClick={() => {}} />
+        </Provider>
+      </BrowserRouter>
+    );
+
+    expect(mockIsSelected).toHaveBeenCalledWith(mockData);
   });
 });

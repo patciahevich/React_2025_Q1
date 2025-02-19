@@ -22,7 +22,6 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    setValue(theme);
   };
 
   useEffect(() => {
