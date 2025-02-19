@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Main from './Main';
 import { MemoryRouter } from 'react-router';
 import { ServerResponse } from '../../utils/types';
@@ -8,19 +8,32 @@ import selectedReducer from '../../store/selectedSlice';
 import { Provider } from 'react-redux';
 import { useGetPeopleQuery } from '../../api/swapiApi';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
-import mockData from '../../utils/mockData';
+import { mockPeopleData as mockData } from '../../utils/mockData';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
 vi.mock('../../api/swapiApi', () => ({
   useGetPeopleQuery: vi.fn(),
 }));
 
+vi.mock('../../hooks/useQueryParams', () => ({
+  useQueryParams: vi.fn(),
+}));
+
+const mockSetParam = vi.fn();
+
 let store: Store<unknown, UnknownAction, unknown>;
 
-beforeAll(() => {
+beforeEach(() => {
   store = configureStore({
     reducer: {
       selected: selectedReducer,
     },
+  });
+
+  (useQueryParams as Mock).mockReturnValue({
+    searchParams: new URLSearchParams({ page: '1' }),
+    setParam: mockSetParam,
+    removeParam: vi.fn(),
   });
 });
 
@@ -47,6 +60,8 @@ describe('Main Component', () => {
 
     const children = main.querySelectorAll('.card');
     expect(children).toHaveLength(mockData.results.length);
+
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 
   it('Should return the empty component if no data is passed', () => {
@@ -92,5 +107,74 @@ describe('Main Component', () => {
       </Provider>
     );
     expect(screen.getByText(/Nothing was found/i)).toBeInTheDocument();
+  });
+
+  it('Correct work pagination', () => {
+    (useGetPeopleQuery as Mock).mockReturnValue({
+      data: mockData,
+      isFetching: false,
+      error: null,
+    });
+
+    render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <Main />
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
+    );
+
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+
+    const nextButton = screen.getByText(new RegExp('next'));
+    fireEvent.click(nextButton);
+
+    expect(mockSetParam).toHaveBeenCalledWith('page', '2');
+  });
+
+  it('Should display the spinner if  data is fetching', () => {
+    (useGetPeopleQuery as Mock).mockReturnValue({
+      data: null,
+      isFetching: true,
+      error: null,
+    });
+
+    render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <Main />
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
+    );
+
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
+  });
+
+  it('Add name to the query parameters.', async () => {
+    (useGetPeopleQuery as Mock).mockReturnValue({
+      data: mockData,
+      isFetching: false,
+      error: null,
+    });
+
+    render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <Main />
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
+    );
+
+    const button = screen.getAllByText(new RegExp('Planet Info'))[0];
+    expect(button).toBeInTheDocument();
+
+    fireEvent.click(button);
+    expect(mockSetParam).toHaveBeenCalledWith('details', 'Luke Skywalker');
   });
 });

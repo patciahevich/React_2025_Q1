@@ -6,10 +6,10 @@ import { Provider } from 'react-redux';
 import { Mock, vi } from 'vitest';
 import { BrowserRouter } from 'react-router';
 import useSelected from '../../hooks/useSelected';
-import mockData from '../../utils/mockData';
+import { mockPeopleData } from '../../utils/mockData';
 
 let store: Store<unknown, UnknownAction, unknown>;
-const cardItem = mockData.results[0];
+const cardItem = mockPeopleData.results[0];
 
 vi.mock(import('../../hooks/useSelected'), async (importOriginal) => {
   const actual = await importOriginal();

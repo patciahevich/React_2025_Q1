@@ -1,8 +1,9 @@
+import { IPlanet } from 'swapi-ts/src/SWApi';
 import { ServerResponse } from './types';
 
-const mockData: ServerResponse = {
+export const mockPeopleData: ServerResponse = {
   count: 82,
-  next: 'https://swapi.dev/api/people/?page=2',
+  next: 'https://swapi.dev/api/people/?page=1',
   previous: null,
   results: [
     {
@@ -55,8 +56,8 @@ const mockData: ServerResponse = {
       species: ['https://swapi.dev/api/species/2/'],
       vehicles: [],
       starships: [],
-      created: new Date('2014-12-09T13:50:51.644000Z'),
-      edited: new Date('2014-12-20T21:17:56.891000Z'),
+      created: new Date('2014-11-09T13:50:51.644000Z'),
+      edited: new Date('2014-11-20T21:17:56.891000Z'),
       url: 'https://swapi.dev/api/people/2/',
     },
     {
@@ -80,8 +81,8 @@ const mockData: ServerResponse = {
       species: ['https://swapi.dev/api/species/2/'],
       vehicles: [],
       starships: [],
-      created: new Date('2014-12-09T13:50:51.644000Z'),
-      edited: new Date('2014-12-20T21:17:56.891000Z'),
+      created: new Date('2014-10-09T13:50:51.644000Z'),
+      edited: new Date('2014-10-20T21:17:56.891000Z'),
       url: 'https://swapi.dev/api/people/3/',
     },
     {
@@ -103,8 +104,8 @@ const mockData: ServerResponse = {
       species: [],
       vehicles: [],
       starships: ['https://swapi.dev/api/starships/13/'],
-      created: new Date('2014-12-09T13:50:51.644000Z'),
-      edited: new Date('2014-12-20T21:17:56.891000Z'),
+      created: new Date('2014-09-09T13:50:51.644000Z'),
+      edited: new Date('2014-09-20T21:17:56.891000Z'),
       url: 'https://swapi.dev/api/people/4/',
     },
     {
@@ -126,11 +127,43 @@ const mockData: ServerResponse = {
       species: [],
       vehicles: ['https://swapi.dev/api/vehicles/30/'],
       starships: [],
-      created: new Date('2014-12-09T13:50:51.644000Z'),
-      edited: new Date('2014-12-20T21:17:56.891000Z'),
+      created: new Date('2014-08-09T13:50:51.644000Z'),
+      edited: new Date('2014-08-20T21:17:56.891000Z'),
       url: 'https://swapi.dev/api/people/5/',
     },
   ],
 };
 
-export default mockData;
+export const mockPlanetData: IPlanet = {
+  name: 'Tatooine',
+  rotation_period: '23',
+  orbital_period: '304',
+  diameter: '10465',
+  climate: 'arid',
+  gravity: '1 standard',
+  terrain: 'desert',
+  surface_water: '1',
+  population: '200000',
+  residents: [
+    'https://swapi.dev/api/people/1/',
+    'https://swapi.dev/api/people/2/',
+    'https://swapi.dev/api/people/4/',
+    'https://swapi.dev/api/people/6/',
+    'https://swapi.dev/api/people/7/',
+    'https://swapi.dev/api/people/8/',
+    'https://swapi.dev/api/people/9/',
+    'https://swapi.dev/api/people/11/',
+    'https://swapi.dev/api/people/43/',
+    'https://swapi.dev/api/people/62/',
+  ],
+  films: [
+    'https://swapi.dev/api/films/1/',
+    'https://swapi.dev/api/films/3/',
+    'https://swapi.dev/api/films/4/',
+    'https://swapi.dev/api/films/5/',
+    'https://swapi.dev/api/films/6/',
+  ],
+  created: new Date('2014-12-09T13:50:49.641000Z'),
+  edited: new Date('2014-12-20T20:58:18.411000Z'),
+  url: 'https://swapi.dev/api/planets/1/',
+};

@@ -57,11 +57,11 @@ function Main() {
           ))}
         </section>
 
-        <section className={details ? 'details active' : 'details'}>
+        <article className={details ? 'details active' : 'details'}>
           {details ? <Details /> : null}
 
           <button onClick={resetDetails}>Close</button>
-        </section>
+        </article>
       </main>
       <Pagination
         prevPage={data.previous ?? null}

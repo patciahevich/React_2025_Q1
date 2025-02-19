@@ -5,7 +5,7 @@ import Flyout from './Flyout';
 import { Provider } from 'react-redux';
 import { fireEvent, render, screen } from '@testing-library/react';
 import useSelected from '../../hooks/useSelected';
-import mockData from '../../utils/mockData';
+import { mockPeopleData as mockData } from '../../utils/mockData';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
 
 vi.mock(import('../../hooks/useSelected'), async (importOriginal) => {

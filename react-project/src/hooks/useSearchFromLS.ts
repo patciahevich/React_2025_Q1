@@ -3,12 +3,11 @@ import { useQueryParams } from './useQueryParams';
 import { SEARCH_PARAMS } from '../utils/types';
 import useLocalStorage from './useLocalStorage';
 
-function useSearchFromLS() {
-  const [savedValue] = useLocalStorage();
+function useSearchFromLS(key: string) {
+  const [savedValue] = useLocalStorage(key, '');
   const { searchParams, setParams } = useQueryParams();
 
-  const initialValue =
-    searchParams.get(SEARCH_PARAMS.Search) ?? savedValue ?? '';
+  const initialValue = searchParams.get(SEARCH_PARAMS.Search) ?? savedValue;
 
   useEffect(() => {
     setParams({

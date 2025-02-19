@@ -10,7 +10,7 @@ const KEY = 'searchValue';
 function Header() {
   const [, setSavedValue] = useLocalStorage(KEY, '');
   const { setParams } = useQueryParams();
-  const { initialValue } = useSearchFromLS();
+  const { initialValue } = useSearchFromLS(KEY);
   const [searchValue, setSearchValue] = useState(initialValue);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
