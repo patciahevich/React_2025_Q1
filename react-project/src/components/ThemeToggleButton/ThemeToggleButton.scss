@@ -1,0 +1,19 @@
+.theme {
+  grid-area: theme;
+
+  width: 50px;
+  height: 50px;
+
+  background-size: cover;
+  background: none;
+  border: none;
+  box-shadow: none;
+
+  &.light {
+    background-image: url(../../assets/dark.png);
+  }
+
+  &.dark {
+    background-image: url(../../assets/light.png);
+  }
+}

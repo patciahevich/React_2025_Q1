@@ -5,16 +5,16 @@ type EmptyProps = {
   imageName: string;
 };
 
-function Empty(props: EmptyProps) {
+function Empty({ text, imageName }: EmptyProps) {
   return (
     <div className="empty-wrapper">
       <div
         className="empty"
         style={{
-          backgroundImage: `url(./src/assets/${props.imageName}.jpg)`,
+          backgroundImage: `url(./src/assets/${imageName}.jpg)`,
         }}
       >
-        <h2>{props.text} Please, try again!</h2>
+        <h2>{text} Please, try again!</h2>
       </div>
     </div>
   );

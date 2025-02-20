@@ -3,11 +3,14 @@ import './Header.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import useSearchFromLS from '../../hooks/useSearchFromLS';
+import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton';
+
+const KEY = 'searchValue';
 
 function Header() {
-  const [, setSavedValue] = useLocalStorage();
+  const [, setSavedValue] = useLocalStorage(KEY, '');
   const { setParams } = useQueryParams();
-  const { initialValue } = useSearchFromLS();
+  const { initialValue } = useSearchFromLS(KEY);
   const [searchValue, setSearchValue] = useState(initialValue);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -25,6 +28,7 @@ function Header() {
 
   return (
     <header>
+      <ThemeToggleButton />
       <h1>STAR WARS API</h1>
       <div className="logo" />
       <form className="search_form" name="search-form" onSubmit={handleSubmit}>

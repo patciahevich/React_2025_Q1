@@ -1,14 +1,14 @@
 import { IPlanet } from 'swapi-ts/src/SWApi';
 import { SEARCH_PARAMS } from '../../utils/types';
-import { useSearchParams } from 'react-router';
 import './Planet.scss';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
 type PlanetProps = {
   data: IPlanet;
 };
 
 function Planet({ data }: PlanetProps) {
-  const [searchParams] = useSearchParams();
+  const { searchParams } = useQueryParams();
   const name = searchParams.get(SEARCH_PARAMS.Details);
   return (
     <div className="planet">

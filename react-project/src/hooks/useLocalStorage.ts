@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 
-const KEY = 'searchValue';
-
-function useLocalStorage() {
+function useLocalStorage(key: string, initialValue: string) {
   const [value, setValue] = useState(() => {
     try {
-      const storedValue = localStorage.getItem(KEY);
-      return storedValue ? JSON.parse(storedValue) : '';
+      const storedValue = localStorage.getItem(key);
+      return storedValue ? JSON.parse(storedValue) : initialValue;
     } catch (error) {
       console.error('Error: ', error);
       return;
@@ -16,14 +14,14 @@ function useLocalStorage() {
   useEffect(() => {
     try {
       if (value) {
-        localStorage.setItem(KEY, JSON.stringify(value));
+        localStorage.setItem(key, JSON.stringify(value));
       } else {
-        localStorage.removeItem(KEY);
+        localStorage.removeItem(key);
       }
     } catch (error) {
       console.error('Error :', error);
     }
-  }, [value]);
+  }, [value, key]);
 
   return [value, setValue] as const;
 }

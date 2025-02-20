@@ -1,6 +1,7 @@
 import './Pagination.scss';
 import { SEARCH_PARAMS } from '../../utils/types';
 import { useQueryParams } from '../../hooks/useQueryParams';
+import { useTheme } from '../../hooks/useTheme';
 
 type PaginationProps = {
   nextPage: null | string;
@@ -9,6 +10,7 @@ type PaginationProps = {
 function Pagination({ nextPage, prevPage }: PaginationProps) {
   const { searchParams, setParam } = useQueryParams();
   const page = Number(searchParams.get(SEARCH_PARAMS.Page)) || 1;
+  const { theme } = useTheme();
 
   function setPage(page: number) {
     setParam('page', page.toString());
@@ -21,7 +23,7 @@ function Pagination({ nextPage, prevPage }: PaginationProps) {
     setPage(page - 1);
   }
   return (
-    <nav className="pagination">
+    <nav className={`${theme} pagination`}>
       <button
         className="prev"
         onClick={toPrevPage}

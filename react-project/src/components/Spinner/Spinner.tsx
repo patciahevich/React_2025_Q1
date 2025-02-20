@@ -2,7 +2,7 @@ import './Spinner.scss';
 
 function Spinner() {
   return (
-    <div className="spinner_wrapper">
+    <div data-testid="spinner" className="spinner_wrapper">
       <div className="spinner" />
     </div>
   );
