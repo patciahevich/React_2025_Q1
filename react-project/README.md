@@ -34,6 +34,10 @@ This project is a React application aimed at learning and exploring React featur
 
    `npm run dev`
 
+6. Run test:
+
+   `npm run test`
+
 ### ❗️ N.B.: If the is no access to the API (star wars api), please use VPN to test my app. Thank you 😇
 
 ## ☘️ Features
@@ -45,9 +49,5 @@ This project is a React application aimed at learning and exploring React featur
 - TypeScript for type safety
 
 ## 🍀 Future Improvements
-
-- Implement global state management (Redux, React Context, or Zustand)
-
-- Add testing with Jest and React Testing Library
 
 - Improve UI/UX
