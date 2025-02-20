@@ -3,7 +3,7 @@ import { IPeople } from 'swapi-ts/src/SWApi';
 export type ServerResponse = {
   count: number;
   next: string;
-  previous: null;
+  previous: null | string;
   results: IPeople[];
 };
 

@@ -3,9 +3,13 @@ import ErrorButton from './ErrorButton';
 import { Mock, vi } from 'vitest';
 import { useState } from 'react';
 
-vi.mock('react', () => ({
-  useState: vi.fn(),
-}));
+vi.mock(import('react'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useState: vi.fn(),
+  };
+});
 
 const mockSetThrowError = vi.fn();
 

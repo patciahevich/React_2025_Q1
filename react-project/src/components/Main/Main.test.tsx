@@ -20,6 +20,7 @@ vi.mock('../../hooks/useQueryParams', () => ({
 }));
 
 const mockSetParam = vi.fn();
+const mockResetParams = vi.fn();
 
 let store: Store<unknown, UnknownAction, unknown>;
 
@@ -31,9 +32,9 @@ beforeEach(() => {
   });
 
   (useQueryParams as Mock).mockReturnValue({
-    searchParams: new URLSearchParams({ page: '1' }),
+    searchParams: new URLSearchParams({ page: '2' }),
     setParam: mockSetParam,
-    removeParam: vi.fn(),
+    removeParam: mockResetParams,
   });
 });
 
@@ -131,7 +132,39 @@ describe('Main Component', () => {
     const nextButton = screen.getByText(new RegExp('next'));
     fireEvent.click(nextButton);
 
-    expect(mockSetParam).toHaveBeenCalledWith('page', '2');
+    expect(mockSetParam).toHaveBeenCalledWith('page', '3');
+
+    const prevButton = screen.getByText(new RegExp('prev'));
+    fireEvent.click(prevButton);
+
+    expect(mockSetParam).toHaveBeenCalledWith('page', '1');
+  });
+
+  it('Check if the button is disabled', () => {
+    const data = {
+      count: 0,
+      next: 'https://swapi.dev/api/people/?page=2',
+      previous: null,
+      results: [mockData.results[0]],
+    };
+    (useGetPeopleQuery as Mock).mockReturnValue({
+      data: data,
+      isFetching: false,
+      error: null,
+    });
+
+    render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <Main />
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
+    );
+
+    const prevButton = screen.getByText(new RegExp('prev'));
+    expect(prevButton).toBeDisabled();
   });
 
   it('Should display the spinner if  data is fetching', () => {
@@ -154,7 +187,7 @@ describe('Main Component', () => {
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 
-  it('Add name to the query parameters.', async () => {
+  it('Add/reset name to the query parameters.', async () => {
     (useGetPeopleQuery as Mock).mockReturnValue({
       data: mockData,
       isFetching: false,
@@ -176,5 +209,11 @@ describe('Main Component', () => {
 
     fireEvent.click(button);
     expect(mockSetParam).toHaveBeenCalledWith('details', 'Luke Skywalker');
+
+    const closeButton = screen.getByText(new RegExp('Close'));
+    expect(closeButton).toBeInTheDocument();
+
+    fireEvent.click(closeButton);
+    expect(mockResetParams).toHaveBeenCalledWith('details');
   });
 });

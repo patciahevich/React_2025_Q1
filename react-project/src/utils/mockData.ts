@@ -3,8 +3,8 @@ import { ServerResponse } from './types';
 
 export const mockPeopleData: ServerResponse = {
   count: 82,
-  next: 'https://swapi.dev/api/people/?page=1',
-  previous: null,
+  next: 'https://swapi.dev/api/people/?page=3',
+  previous: 'https://swapi.dev/api/people/?page=1',
   results: [
     {
       name: 'Luke Skywalker',

@@ -29,7 +29,7 @@ function Main() {
 
   function handleClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
     const target = e.target as HTMLElement;
-    if (!target.closest('.button')) {
+    if (target.tagName === 'BUTTON') {
       resetDetails();
     }
   }
