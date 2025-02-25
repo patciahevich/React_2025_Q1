@@ -4,16 +4,17 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write .",
-    "preview": "vite preview",
     "prepare": "cd .. && husky react-project/.husky",
     "test": "vitest --coverage"
   },
   "dependencies": {
+    "next": "15.1.7",
     "@reduxjs/toolkit": "^2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
