@@ -1,6 +1,7 @@
 import styles from './Pagination.module.scss';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useTheme } from '../../hooks/useTheme';
+import React from 'react';
 
 type PaginationProps = {
   nextPage: null | string;

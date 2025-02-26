@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styles from './Header.module.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';

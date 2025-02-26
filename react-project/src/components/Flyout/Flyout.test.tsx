@@ -7,6 +7,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import useSelected from '../../hooks/useSelected';
 import { mockPeopleData as mockData } from '../../utils/mockData';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
+import React from 'react';
 
 vi.mock(import('../../hooks/useSelected'), async (importOriginal) => {
   const actual = await importOriginal();

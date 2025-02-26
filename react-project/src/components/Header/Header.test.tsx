@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Header from './Header';
-import { MemoryRouter } from 'react-router';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
 import { Mock, vi } from 'vitest';
 import { useQueryParams } from '../../hooks/useQueryParams';
+import React from 'react';
 
 vi.mock('../../hooks/useQueryParams', () => ({
   useQueryParams: vi.fn(),
@@ -24,11 +24,9 @@ describe('Tests for the Header component: ', () => {
       searchParams: null,
     });
     render(
-      <MemoryRouter>
-        <ThemeProvider>
-          <Header />
-        </ThemeProvider>
-      </MemoryRouter>
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>
     );
 
     expect(screen.getByRole('textbox')).toBeInTheDocument();
@@ -40,11 +38,9 @@ describe('Tests for the Header component: ', () => {
       searchParams: null,
     });
     render(
-      <MemoryRouter>
-        <ThemeProvider>
-          <Header />
-        </ThemeProvider>
-      </MemoryRouter>
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>
     );
 
     const input = screen.getByRole('textbox');
@@ -63,11 +59,9 @@ describe('Tests for the Header component: ', () => {
     });
 
     render(
-      <MemoryRouter>
-        <ThemeProvider>
-          <Header />
-        </ThemeProvider>
-      </MemoryRouter>
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>
     );
 
     const input = screen.getByRole('textbox');

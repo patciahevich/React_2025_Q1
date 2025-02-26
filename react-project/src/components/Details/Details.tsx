@@ -2,6 +2,7 @@ import Planet from '../Planet/Planet';
 import Spinner from '../Spinner/Spinner';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
+import React from 'react';
 
 function Details() {
   const { query } = useQueryParams();

@@ -7,6 +7,7 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import { useGetPeopleQuery } from '../../api/swapiApi';
 import Spinner from '../Spinner/Spinner';
 import Pagination from '../Pagination/Pagination';
+import React from 'react';
 
 function Main() {
   const { query, setParam, removeParam } = useQueryParams();

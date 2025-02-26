@@ -1,6 +1,7 @@
 import useSelected from '../../hooks/useSelected';
 import { useTheme } from '../../hooks/useTheme';
 import styles from './Flyout.module.scss';
+import React from 'react';
 
 function Flyout() {
   const { selectedItems, resetAll, downloadAll } = useSelected();

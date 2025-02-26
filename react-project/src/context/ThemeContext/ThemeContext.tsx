@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const KEY = 'themeValue';

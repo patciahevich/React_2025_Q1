@@ -4,7 +4,7 @@ import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
 import { mockPeopleData, mockPlanetData as planet } from '../../utils/mockData';
 import Details from './Details';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router';
+import React from 'react';
 
 vi.mock('../../api/swapiApi', () => ({
   useGetPersonQuery: vi.fn(),
@@ -17,7 +17,7 @@ vi.mock('../../hooks/useQueryParams', () => ({
 
 beforeEach(() => {
   (useQueryParams as Mock).mockReturnValue({
-    searchParams: new URLSearchParams({ details: 'Luke Skywalker' }),
+    query: { details: 'Luke Skywalker' },
   });
 
   (useGetPersonQuery as Mock).mockReturnValue({
@@ -35,11 +35,7 @@ describe('Tests for the Details component: ', () => {
       error: null,
     });
 
-    render(
-      <BrowserRouter>
-        <Details />
-      </BrowserRouter>
-    );
+    render(<Details />);
 
     expect(screen.getByText(new RegExp(planet.name))).toBeInTheDocument();
     expect(
@@ -61,11 +57,7 @@ describe('Tests for the Details component: ', () => {
       error: null,
     });
 
-    render(
-      <BrowserRouter>
-        <Details />
-      </BrowserRouter>
-    );
+    render(<Details />);
 
     expect(screen.queryByText(new RegExp(planet.name))).toBeNull();
   });
@@ -76,11 +68,7 @@ describe('Tests for the Details component: ', () => {
       error: null,
     });
 
-    render(
-      <BrowserRouter>
-        <Details />
-      </BrowserRouter>
-    );
+    render(<Details />);
 
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import ErrorButton from './ErrorButton';
 import { Mock, vi } from 'vitest';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 vi.mock(import('react'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -19,13 +19,13 @@ beforeEach(() => {
 
 describe('Tests for the ErrorButton component: ', () => {
   it('Render the Error Button', () => {
-    render(<ErrorButton />);
+    render(<ErrorButton class={'error'} />);
 
     expect(screen.getByText(new RegExp('Throw Error'))).toBeInTheDocument();
   });
 
   it('Throw error by clicking on the button', () => {
-    render(<ErrorButton />);
+    render(<ErrorButton class="error" />);
 
     const button = screen.getByText(new RegExp('Throw Error'));
 

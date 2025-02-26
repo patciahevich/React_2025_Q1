@@ -1,6 +1,7 @@
 import { IPeople } from 'swapi-ts/src/SWApi';
 import styles from './PeopleCard.module.scss';
 import useSelected from '../../hooks/useSelected';
+import React from 'react';
 
 type CardData = {
   data: IPeople;
@@ -22,6 +23,7 @@ function PeopleCard({ data, handleClick }: CardData) {
   }
   return (
     <div
+      data-testId="card"
       className={
         isSelected(data) ? `${styles.card} ${styles.selected}` : styles.card
       }

@@ -1,4 +1,5 @@
 import styles from './Empty.module.scss';
+import React from 'react';
 
 type EmptyProps = {
   text: string;

@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Main from './Main';
-import { MemoryRouter } from 'react-router';
 import { ServerResponse } from '../../utils/types';
 import { Mock, vi } from 'vitest';
 import { configureStore, Store, UnknownAction } from '@reduxjs/toolkit';
@@ -10,6 +9,7 @@ import { useGetPeopleQuery } from '../../api/swapiApi';
 import { ThemeProvider } from '../../context/ThemeContext/ThemeContext';
 import { mockPeopleData as mockData } from '../../utils/mockData';
 import { useQueryParams } from '../../hooks/useQueryParams';
+import React from 'react';
 
 vi.mock('../../api/swapiApi', () => ({
   useGetPeopleQuery: vi.fn(),
@@ -32,7 +32,7 @@ beforeEach(() => {
   });
 
   (useQueryParams as Mock).mockReturnValue({
-    searchParams: new URLSearchParams({ page: '2' }),
+    query: { page: '2' },
     setParam: mockSetParam,
     removeParam: mockResetParams,
   });
@@ -49,9 +49,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -59,7 +57,7 @@ describe('Main Component', () => {
     const main = await screen.findByTestId('main');
     expect(main).toBeInTheDocument();
 
-    const children = main.querySelectorAll('.card');
+    const children = screen.getAllByTestId('card');
     expect(children).toHaveLength(mockData.results.length);
 
     expect(screen.getByRole('navigation')).toBeInTheDocument();
@@ -75,9 +73,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -101,9 +97,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -120,9 +114,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -156,9 +148,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -177,9 +167,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );
@@ -197,9 +185,7 @@ describe('Main Component', () => {
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <MemoryRouter>
-            <Main />
-          </MemoryRouter>
+          <Main />
         </ThemeProvider>
       </Provider>
     );

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Planet from './Planet';
 import { mockPlanetData } from '../../utils/mockData';
 import { useQueryParams } from '../../hooks/useQueryParams';
-import { BrowserRouter } from 'react-router';
+import React from 'react';
 
 vi.mock('../../hooks/useQueryParams', () => ({
   useQueryParams: vi.fn(),
@@ -12,14 +12,10 @@ vi.mock('../../hooks/useQueryParams', () => ({
 describe('Tests for the Planet component: ', () => {
   it('Should display name of the character', () => {
     (useQueryParams as Mock).mockReturnValue({
-      searchParams: new URLSearchParams({ details: 'Luke Skywalker' }),
+      query: { details: 'Luke Skywalker' },
     });
 
-    render(
-      <BrowserRouter>
-        <Planet data={mockPlanetData} />
-      </BrowserRouter>
-    );
+    render(<Planet data={mockPlanetData} />);
 
     expect(
       screen.getByText(new RegExp('The home planet for Luke Skywalker is :'))
@@ -28,14 +24,10 @@ describe('Tests for the Planet component: ', () => {
 
   it('Should not display name of the character', () => {
     (useQueryParams as Mock).mockReturnValue({
-      searchParams: new URLSearchParams({}),
+      query: {},
     });
 
-    render(
-      <BrowserRouter>
-        <Planet data={mockPlanetData} />
-      </BrowserRouter>
-    );
+    render(<Planet data={mockPlanetData} />);
 
     expect(
       screen.queryByText(new RegExp('The home planet for Luke Skywalker is :'))

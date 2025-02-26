@@ -4,9 +4,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import selectedReducer from '../../store/selectedSlice';
 import { Provider } from 'react-redux';
 import { Mock, vi } from 'vitest';
-import { BrowserRouter } from 'react-router';
 import useSelected from '../../hooks/useSelected';
 import { mockPeopleData } from '../../utils/mockData';
+import React from 'react';
 
 let store: Store<unknown, UnknownAction, unknown>;
 const cardItem = mockPeopleData.results[0];
@@ -63,14 +63,12 @@ describe('Tests for the Card component: ', () => {
     });
 
     render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <PeopleCard
-            data={cardItem}
-            handleClick={() => addDetails(cardItem.name)}
-          />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <PeopleCard
+          data={cardItem}
+          handleClick={() => addDetails(cardItem.name)}
+        />
+      </Provider>
     );
 
     const button = screen.getByText(new RegExp('Planet Info'));
@@ -88,11 +86,9 @@ describe('Tests for the Card component: ', () => {
     });
 
     render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <PeopleCard data={cardItem} handleClick={() => {}} />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <PeopleCard data={cardItem} handleClick={() => {}} />
+      </Provider>
     );
 
     const card = screen.getByText(new RegExp(cardItem.name));
@@ -110,11 +106,9 @@ describe('Tests for the Card component: ', () => {
     });
 
     render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <PeopleCard data={cardItem} handleClick={() => {}} />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <PeopleCard data={cardItem} handleClick={() => {}} />
+      </Provider>
     );
 
     expect(mockIsSelected).toHaveBeenCalledWith(cardItem);

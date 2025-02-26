@@ -1,6 +1,7 @@
 import { IPlanet } from 'swapi-ts/src/SWApi';
 import styles from './Planet.module.scss';
 import { useQueryParams } from '../../hooks/useQueryParams';
+import React from 'react';
 
 type PlanetProps = {
   data: IPlanet;

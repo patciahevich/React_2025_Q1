@@ -9,7 +9,6 @@ import { useTheme } from '../src/hooks/useTheme';
 function Home() {
   const { theme } = useTheme();
 
-  console.log(theme);
   return (
     <div className={`${styles.homePage} ${styles[theme]}`}>
       <ErrorButton class={styles.error} />

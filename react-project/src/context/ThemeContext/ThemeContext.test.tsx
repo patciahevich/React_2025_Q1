@@ -2,7 +2,7 @@ import { Mock, vi } from 'vitest';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ThemeContext, ThemeProvider } from './ThemeContext';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 vi.mock(import('../../hooks/useLocalStorage'), async (importOriginal) => {
   const actual = await importOriginal();

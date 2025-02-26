@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
+import React from 'react';
 
 function ErrorComponent() {
   throw new Error('Test Error');

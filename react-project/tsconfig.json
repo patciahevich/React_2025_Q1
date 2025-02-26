@@ -21,6 +21,12 @@
     "incremental": true,
     "plugins": [{ "name": "next" }]
   },
-  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "include": [
+    "./src",
+    "./dist/types/**/*.ts",
+    "./next-env.d.ts",
+    "tests/MainPage.tests.tsx",
+    "oldTests/NotFound.tests.tsx"
+  ],
   "exclude": ["./node_modules"]
 }
