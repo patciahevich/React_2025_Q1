@@ -1,5 +1,5 @@
 import { IPeople } from 'swapi-ts/src/SWApi';
-import './PeopleCard.scss';
+import styles from './PeopleCard.module.scss';
 import useSelected from '../../hooks/useSelected';
 
 type CardData = {
@@ -11,6 +11,8 @@ function PeopleCard({ data, handleClick }: CardData) {
   const { isSelected, toggleItem } = useSelected();
 
   function handleSelect(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+
     const target = e.target as HTMLElement;
     if (target.tagName === 'BUTTON') {
       return;
@@ -20,7 +22,9 @@ function PeopleCard({ data, handleClick }: CardData) {
   }
   return (
     <div
-      className={isSelected(data) ? 'card selected' : 'card'}
+      className={
+        isSelected(data) ? `${styles.card} ${styles.selected}` : styles.card
+      }
       onClick={(e) => handleSelect(e)}
     >
       <div>
@@ -31,11 +35,11 @@ function PeopleCard({ data, handleClick }: CardData) {
         <p>mass: {data.mass}</p>
         <p>hair color: {data.hair_color}</p>
         <p>eye color: {data.eye_color}</p>
-        <button className="button" onClick={handleClick}>
+        <button className={styles.button} onClick={handleClick}>
           Planet Info
         </button>
       </div>
-      <div className="image" />
+      <div className={styles.image} />
     </div>
   );
 }

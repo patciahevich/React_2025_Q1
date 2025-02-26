@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import './Header.scss';
+import styles from './Header.module.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import useSearchFromLS from '../../hooks/useSearchFromLS';
@@ -27,11 +27,15 @@ function Header() {
   }
 
   return (
-    <header>
+    <header className={styles.header}>
       <ThemeToggleButton />
       <h1>STAR WARS API</h1>
-      <div className="logo" />
-      <form className="search_form" name="search-form" onSubmit={handleSubmit}>
+      <div className={styles.logo} />
+      <form
+        className={styles.searchForm}
+        name="search-form"
+        onSubmit={handleSubmit}
+      >
         <input
           name="search"
           placeholder="Search..."
