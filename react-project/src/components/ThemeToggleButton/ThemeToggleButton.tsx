@@ -6,7 +6,7 @@ function ThemeToggleButton() {
 
   return (
     <button
-      className={` ${styles.theme} ${theme}`}
+      className={` ${styles.theme} ${styles[theme]}`}
       onClick={toggleTheme}
     ></button>
   );
