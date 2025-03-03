@@ -5,8 +5,8 @@ import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
 import React from 'react';
 
 function Details() {
-  const { query } = useQueryParams();
-  const person = query.details;
+  const { searchParams } = useQueryParams();
+  const person = searchParams?.get('details');
 
   const { data: peopleData, isFetching: isPeopleFetching } = useGetPersonQuery(
     person,

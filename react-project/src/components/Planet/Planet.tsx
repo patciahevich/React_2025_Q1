@@ -1,3 +1,5 @@
+'use client';
+
 import { IPlanet } from 'swapi-ts/src/SWApi';
 import styles from './Planet.module.scss';
 import { useQueryParams } from '../../hooks/useQueryParams';
@@ -8,8 +10,9 @@ type PlanetProps = {
 };
 
 function Planet({ data }: PlanetProps) {
-  const { query } = useQueryParams();
-  const name = query.details;
+  const { searchParams } = useQueryParams();
+  const name = searchParams?.get('details');
+
   return (
     <div className={styles.planet}>
       {name ? (

@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import styles from '../styles/NotFound.module.scss';
 import React from 'react';
 
