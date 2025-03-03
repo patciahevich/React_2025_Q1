@@ -23,7 +23,7 @@ function PeopleCard({ data, handleClick }: CardData) {
   }
   return (
     <div
-      data-testId="card"
+      data-testid="card"
       className={
         isSelected(data) ? `${styles.card} ${styles.selected}` : styles.card
       }
