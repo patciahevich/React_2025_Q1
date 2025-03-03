@@ -8,8 +8,8 @@ type PaginationProps = {
   prevPage: null | string;
 };
 function Pagination({ nextPage, prevPage }: PaginationProps) {
-  const { query, setParam } = useQueryParams();
-  const page = Number(query.page) || 1;
+  const { searchParams, setParam } = useQueryParams();
+  const page = Number(searchParams?.get('page')) || 1;
   const { theme } = useTheme();
 
   function setPage(page: number) {

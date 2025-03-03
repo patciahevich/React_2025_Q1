@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import styles from '../styles/Home.module.scss';
 import Flyout from '../src/components/Flyout/Flyout';

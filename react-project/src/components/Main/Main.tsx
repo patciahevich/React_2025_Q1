@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Main.module.scss';
 import { SEARCH_PARAMS } from '../../utils/types';
 import PeopleCard from '../PeopleCard/PeopleCard';
@@ -10,10 +12,10 @@ import Pagination from '../Pagination/Pagination';
 import React from 'react';
 
 function Main() {
-  const { query, setParam, removeParam } = useQueryParams();
-  const page = query.page ?? 1;
-  const search: string = typeof query.search === 'string' ? query.search : '';
-  const details = query.details;
+  const { searchParams, setParam, removeParam } = useQueryParams();
+  const page = searchParams?.get('page') ?? 1;
+  const search: string = searchParams?.get('search') ?? '';
+  const details = searchParams?.get('details');
 
   const { data, error, isFetching } = useGetPeopleQuery({
     page: page.toString(),

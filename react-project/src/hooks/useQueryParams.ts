@@ -1,39 +1,36 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 export function useQueryParams() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
-  const { query } = router;
 
   const setParam = (key: string, value: string) => {
-    const newQuery = { ...query, [key]: value };
+    const newParams = new URLSearchParams(searchParams as URLSearchParams);
+    newParams.set(key, value);
 
-    router.push({
-      pathname: router.pathname,
-      query: newQuery,
-    });
+    router.push(`${pathname}?${newParams.toString()}`);
   };
 
   const setParams = (params: Record<string, string>) => {
-    const newQuery = { ...query, ...params };
-
-    router.push({
-      pathname: router.pathname,
-      query: newQuery,
+    const newParams = new URLSearchParams(searchParams as URLSearchParams);
+    Object.entries(params).forEach(([key, value]) => {
+      newParams.set(key, value);
     });
+
+    router.push(`${pathname}?${newParams.toString()}`);
   };
 
   const removeParam = (key: string | null) => {
     if (!key) return;
 
-    const newQuery = Object.fromEntries(
-      Object.entries(query).filter(([k]) => k !== key)
-    );
+    const newParams = new URLSearchParams(searchParams as URLSearchParams);
+    newParams.delete(key);
 
-    router.push({
-      pathname: router.pathname,
-      query: newQuery,
-    });
+    router.push(`${pathname}?${newParams.toString()}`);
   };
 
-  return { query, setParam, setParams, removeParam };
+  return { searchParams, setParam, setParams, removeParam };
 }

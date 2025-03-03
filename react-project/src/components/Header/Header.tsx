@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FormEvent, useState } from 'react';
 import styles from './Header.module.scss';
 import useLocalStorage from '../../hooks/useLocalStorage';

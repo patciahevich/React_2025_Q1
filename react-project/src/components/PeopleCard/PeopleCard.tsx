@@ -1,3 +1,5 @@
+'use client';
+
 import { IPeople } from 'swapi-ts/src/SWApi';
 import styles from './PeopleCard.module.scss';
 import useSelected from '../../hooks/useSelected';
