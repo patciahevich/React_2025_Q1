@@ -26,7 +26,7 @@
     "./dist/types/**/*.ts",
     "./next-env.d.ts",
     "tests/MainPage.tests.tsx",
-    "oldTests/NotFound.tests.tsx"
+    "tests/NotFound.tests.tsx"
   ],
   "exclude": ["./node_modules"]
 }
