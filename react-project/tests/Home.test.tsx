@@ -4,9 +4,9 @@ import { Mock, vi } from 'vitest';
 import useSelected from '../src/hooks/useSelected';
 import { swapiApi } from '../src/api/swapiApi';
 import { mockPeopleData } from '../src/utils/mockData';
-import Home from '../pages/index';
+import Home from '../app/page';
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { configureStore, Store, UnknownAction } from '@reduxjs/toolkit';
 import selectedReducer from '../src/store/selectedSlice';
 import { Provider } from 'react-redux';
@@ -19,9 +19,13 @@ vi.mock(import('../src/hooks/useSelected'), async (importOriginal) => {
   };
 });
 
-vi.mock('next/router', () => ({
-  useRouter: vi.fn(),
-}));
+vi.mock(import('next/navigation'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useRouter: vi.fn(),
+  };
+});
 
 vi.mock('../src/api.swapiApi', () => ({
   useGetPeopleQuery: vi.fn().mockReturnValue({
@@ -52,7 +56,6 @@ beforeEach(() => {
   });
 
   (useRouter as Mock).mockReturnValue({
-    query: { page: '1' },
     push: vi.fn(),
   });
 });

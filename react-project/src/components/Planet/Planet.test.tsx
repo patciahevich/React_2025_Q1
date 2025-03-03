@@ -12,7 +12,7 @@ vi.mock('../../hooks/useQueryParams', () => ({
 describe('Tests for the Planet component: ', () => {
   it('Should display name of the character', () => {
     (useQueryParams as Mock).mockReturnValue({
-      query: { details: 'Luke Skywalker' },
+      searchParams: new URLSearchParams({ details: 'Luke Skywalker' }),
     });
 
     render(<Planet data={mockPlanetData} />);
@@ -24,7 +24,7 @@ describe('Tests for the Planet component: ', () => {
 
   it('Should not display name of the character', () => {
     (useQueryParams as Mock).mockReturnValue({
-      query: {},
+      searchParams: new URLSearchParams({}),
     });
 
     render(<Planet data={mockPlanetData} />);

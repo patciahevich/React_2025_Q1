@@ -32,7 +32,7 @@ beforeEach(() => {
   });
 
   (useQueryParams as Mock).mockReturnValue({
-    query: { page: '2' },
+    searchParams: new URLSearchParams({ page: '2' }),
     setParam: mockSetParam,
     removeParam: mockResetParams,
   });
@@ -104,7 +104,7 @@ describe('Main Component', () => {
     expect(screen.getByText(/Nothing was found/i)).toBeInTheDocument();
   });
 
-  it('Correct work pagination', () => {
+  it('Correct work of the next button', () => {
     (useGetPeopleQuery as Mock).mockReturnValue({
       data: mockData,
       isFetching: false,
@@ -125,9 +125,27 @@ describe('Main Component', () => {
     fireEvent.click(nextButton);
 
     expect(mockSetParam).toHaveBeenCalledWith('page', '3');
+  });
 
-    const prevButton = screen.getByText(new RegExp('prev'));
-    fireEvent.click(prevButton);
+  it('Correct work of the prev button', () => {
+    (useGetPeopleQuery as Mock).mockReturnValue({
+      data: mockData,
+      isFetching: false,
+      error: null,
+    });
+
+    render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <Main />
+        </ThemeProvider>
+      </Provider>
+    );
+
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+
+    const nextButton = screen.getByText(new RegExp('prev'));
+    fireEvent.click(nextButton);
 
     expect(mockSetParam).toHaveBeenCalledWith('page', '1');
   });
