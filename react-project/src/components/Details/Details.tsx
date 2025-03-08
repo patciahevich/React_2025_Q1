@@ -1,34 +1,15 @@
+import { getPlanet } from '../../actions/getPlanet';
 import Planet from '../Planet/Planet';
-import Spinner from '../Spinner/Spinner';
-import { useQueryParams } from '../../hooks/useQueryParams';
-import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
 import React from 'react';
 
-function Details() {
-  const { searchParams } = useQueryParams();
-  const person = searchParams?.get('details');
+async function Details({ character }: { character: string | null }) {
+  if (!character) return null;
 
-  const { data: peopleData, isFetching: isPeopleFetching } = useGetPersonQuery(
-    person,
-    {
-      skip: !person,
-    }
-  );
+  const { planet: planetData } = await getPlanet(character);
 
-  const personHomeworld = peopleData?.results?.[0]?.homeworld;
+  if (!planetData) return null;
 
-  const { data: planetData, isFetching: isPlanetFetching } = useGetPlanetQuery(
-    personHomeworld,
-    {
-      skip: !personHomeworld,
-    }
-  );
-
-  if (isPeopleFetching || isPlanetFetching) {
-    return <Spinner />;
-  }
-
-  return planetData ? <Planet data={planetData} /> : null;
+  return <Planet data={planetData} />;
 }
 
 export default Details;

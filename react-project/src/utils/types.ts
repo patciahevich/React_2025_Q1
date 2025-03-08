@@ -24,5 +24,5 @@ export enum SEARCH_PARAMS {
 export type QueryParams = {
   search: string;
   page: string;
-  details?: string;
+  details: string | null;
 };

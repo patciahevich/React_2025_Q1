@@ -1,21 +1,26 @@
-'use client';
-import React from 'react';
+import React, { Suspense } from 'react';
 import styles from '../styles/Home.module.scss';
 import Flyout from '../src/components/Flyout/Flyout';
 import ErrorButton from '../src/components/ErrorButton/ErrorButton';
 import Header from '../src/components/Header/Header';
 import Main from '../src/components/Main/Main';
-import { useTheme } from '../src/hooks/useTheme';
+import { QueryParams } from '../src/utils/types';
+import Spinner from '../src/components/Spinner/Spinner';
 
-function Home() {
-  const { theme } = useTheme();
+async function Home({ searchParams }: { searchParams?: Promise<QueryParams> }) {
+  const params = await searchParams;
+  const search = params?.search || '';
+  const page = params?.page || '1';
+  const details = params?.details || null;
 
   return (
-    <div className={`${styles.homePage} ${styles[theme]}`}>
+    <div className={`${styles.homePage}`}>
       <ErrorButton class={styles.error} />
       <Flyout />
       <Header />
-      <Main />
+      <Suspense fallback={<Spinner />}>
+        <Main search={search} page={page} details={details} />
+      </Suspense>
     </div>
   );
 }

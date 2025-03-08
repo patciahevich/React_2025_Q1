@@ -4,16 +4,19 @@ import { IPeople } from 'swapi-ts/src/SWApi';
 import styles from './PeopleCard.module.scss';
 import useSelected from '../../hooks/useSelected';
 import React from 'react';
+import { useQueryParams } from '../../hooks/useQueryParams';
+import { SEARCH_PARAMS } from '../../utils/types';
 
 type CardData = {
   data: IPeople;
-  handleClick: () => void;
 };
 
-function PeopleCard({ data, handleClick }: CardData) {
+function PeopleCard({ data }: CardData) {
   const { isSelected, toggleItem } = useSelected();
 
-  function handleSelect(e: React.MouseEvent<HTMLDivElement>) {
+  const { setParam, removeParam } = useQueryParams();
+
+  function handleClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
 
     const target = e.target as HTMLElement;
@@ -22,6 +25,7 @@ function PeopleCard({ data, handleClick }: CardData) {
     }
 
     toggleItem(data);
+    removeParam(SEARCH_PARAMS.Details);
   }
   return (
     <div
@@ -29,7 +33,8 @@ function PeopleCard({ data, handleClick }: CardData) {
       className={
         isSelected(data) ? `${styles.card} ${styles.selected}` : styles.card
       }
-      onClick={(e) => handleSelect(e)}
+      key={data.created.toString()}
+      onClick={(e) => handleClick(e)}
     >
       <div>
         <p>name: {data.name}</p>
@@ -39,7 +44,10 @@ function PeopleCard({ data, handleClick }: CardData) {
         <p>mass: {data.mass}</p>
         <p>hair color: {data.hair_color}</p>
         <p>eye color: {data.eye_color}</p>
-        <button className={styles.button} onClick={handleClick}>
+        <button
+          className={styles.button}
+          onClick={() => setParam(SEARCH_PARAMS.Details, data.name)}
+        >
           Planet Info
         </button>
       </div>
