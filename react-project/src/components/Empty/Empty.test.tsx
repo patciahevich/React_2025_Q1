@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Empty from './Empty';
+import React from 'react';
 
 describe('Tests for Empty component', () => {
   it('Should render the text from props', () => {

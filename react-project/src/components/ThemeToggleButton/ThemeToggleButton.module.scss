@@ -10,10 +10,10 @@
   box-shadow: none;
 
   &.light {
-    background-image: url(../../assets/dark.png);
+    background-image: url(../../../public/dark.png);
   }
 
   &.dark {
-    background-image: url(../../assets/light.png);
+    background-image: url(../../../public/light.png);
   }
 }

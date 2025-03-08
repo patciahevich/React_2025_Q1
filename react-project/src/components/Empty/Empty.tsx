@@ -1,4 +1,5 @@
-import './Empty.scss';
+import styles from './Empty.module.scss';
+import React from 'react';
 
 type EmptyProps = {
   text: string;
@@ -7,11 +8,11 @@ type EmptyProps = {
 
 function Empty({ text, imageName }: EmptyProps) {
   return (
-    <div className="empty-wrapper">
+    <div className={styles.emptyWrapper}>
       <div
-        className="empty"
+        className={styles.empty}
         style={{
-          backgroundImage: `url(./src/assets/${imageName}.jpg)`,
+          backgroundImage: `url(./${imageName}.jpg)`,
         }}
       >
         <h2>{text} Please, try again!</h2>

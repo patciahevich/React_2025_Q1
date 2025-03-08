@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-function Button() {
+type ButtonProps = {
+  class: string;
+};
+
+function Button(props: ButtonProps) {
   const [throwError, setThrowError] = useState(false);
 
   function handleClick() {
@@ -12,7 +16,7 @@ function Button() {
   }
 
   return (
-    <button type="button" onClick={handleClick} className="error">
+    <button type="button" onClick={handleClick} className={props.class}>
       Throw Error
     </button>
   );

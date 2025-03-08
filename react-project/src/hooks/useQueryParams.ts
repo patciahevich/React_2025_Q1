@@ -1,29 +1,39 @@
-import { useSearchParams } from 'react-router';
+import { useRouter } from 'next/router';
 
 export function useQueryParams() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
+  const { query } = router;
 
   const setParam = (key: string, value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set(key, value);
-    setSearchParams(newParams);
+    const newQuery = { ...query, [key]: value };
+
+    router.push({
+      pathname: router.pathname,
+      query: newQuery,
+    });
   };
 
   const setParams = (params: Record<string, string>) => {
-    const newParams = new URLSearchParams(searchParams);
-    Object.entries(params).forEach(([key, value]) => {
-      newParams.set(key, value);
+    const newQuery = { ...query, ...params };
+
+    router.push({
+      pathname: router.pathname,
+      query: newQuery,
     });
-    setSearchParams(newParams);
   };
 
   const removeParam = (key: string | null) => {
     if (!key) return;
 
-    const newParams = new URLSearchParams(searchParams);
-    newParams.delete(key);
-    setSearchParams(newParams);
+    const newQuery = Object.fromEntries(
+      Object.entries(query).filter(([k]) => k !== key)
+    );
+
+    router.push({
+      pathname: router.pathname,
+      query: newQuery,
+    });
   };
 
-  return { searchParams, setParam, setParams, removeParam };
+  return { query, setParam, setParams, removeParam };
 }

@@ -1,12 +1,12 @@
 import Planet from '../Planet/Planet';
 import Spinner from '../Spinner/Spinner';
 import { useQueryParams } from '../../hooks/useQueryParams';
-import { SEARCH_PARAMS } from '../../utils/types';
 import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
+import React from 'react';
 
 function Details() {
-  const { searchParams } = useQueryParams();
-  const person = searchParams.get(SEARCH_PARAMS.Details);
+  const { query } = useQueryParams();
+  const person = query.details;
 
   const { data: peopleData, isFetching: isPeopleFetching } = useGetPersonQuery(
     person,

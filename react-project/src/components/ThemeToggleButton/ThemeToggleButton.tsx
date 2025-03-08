@@ -1,10 +1,16 @@
 import { useTheme } from '../../hooks/useTheme';
-import './ThemeToggleButton.scss';
+import styles from './ThemeToggleButton.module.scss';
+import React from 'react';
 
 function ThemeToggleButton() {
   const { theme, toggleTheme } = useTheme();
 
-  return <button className={`${theme} theme`} onClick={toggleTheme}></button>;
+  return (
+    <button
+      className={` ${styles.theme} ${styles[theme]}`}
+      onClick={toggleTheme}
+    ></button>
+  );
 }
 
 export default ThemeToggleButton;

@@ -1,4 +1,4 @@
-import './Main.scss';
+import styles from './Main.module.scss';
 import { SEARCH_PARAMS } from '../../utils/types';
 import PeopleCard from '../PeopleCard/PeopleCard';
 import Empty from '../Empty/Empty';
@@ -7,12 +7,13 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import { useGetPeopleQuery } from '../../api/swapiApi';
 import Spinner from '../Spinner/Spinner';
 import Pagination from '../Pagination/Pagination';
+import React from 'react';
 
 function Main() {
-  const { searchParams, setParam, removeParam } = useQueryParams();
-  const page = searchParams.get('page') ?? 1;
-  const search = searchParams.get('search') ?? '';
-  const details = searchParams.get(SEARCH_PARAMS.Details);
+  const { query, setParam, removeParam } = useQueryParams();
+  const page = query.page ?? 1;
+  const search: string = typeof query.search === 'string' ? query.search : '';
+  const details = query.details;
 
   const { data, error, isFetching } = useGetPeopleQuery({
     page: page.toString(),
@@ -42,10 +43,10 @@ function Main() {
     <Empty text="Nothing was found." imageName="nothing" />
   ) : (
     <>
-      <main>
+      <main className={styles.main}>
         <section
           data-testid="main"
-          className="cards"
+          className={styles.cards}
           onClick={(e) => handleClick(e)}
         >
           {data.results.map((person) => (
@@ -57,7 +58,9 @@ function Main() {
           ))}
         </section>
 
-        <article className={details ? 'details active' : 'details'}>
+        <article
+          className={`${styles.details} ${details ? styles.active : ''}`}
+        >
           {details ? <Details /> : null}
 
           <button onClick={resetDetails}>Close</button>

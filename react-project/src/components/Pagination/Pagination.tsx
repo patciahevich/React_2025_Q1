@@ -1,15 +1,15 @@
-import './Pagination.scss';
-import { SEARCH_PARAMS } from '../../utils/types';
+import styles from './Pagination.module.scss';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useTheme } from '../../hooks/useTheme';
+import React from 'react';
 
 type PaginationProps = {
   nextPage: null | string;
   prevPage: null | string;
 };
 function Pagination({ nextPage, prevPage }: PaginationProps) {
-  const { searchParams, setParam } = useQueryParams();
-  const page = Number(searchParams.get(SEARCH_PARAMS.Page)) || 1;
+  const { query, setParam } = useQueryParams();
+  const page = Number(query.page) || 1;
   const { theme } = useTheme();
 
   function setPage(page: number) {
@@ -23,17 +23,17 @@ function Pagination({ nextPage, prevPage }: PaginationProps) {
     setPage(page - 1);
   }
   return (
-    <nav className={`${theme} pagination`}>
+    <nav className={`${styles.pagination} ${styles[theme]}`}>
       <button
-        className="prev"
+        className={styles.prev}
         onClick={toPrevPage}
         disabled={!prevPage ? true : false}
       >
         prev
       </button>
-      <p className="current">{page}</p>
+      <p className={styles.current}>{page}</p>
       <button
-        className="next"
+        className={styles.next}
         onClick={toNextPage}
         disabled={!nextPage ? true : false}
       >
