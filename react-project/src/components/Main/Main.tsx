@@ -3,9 +3,10 @@ import { QueryParams } from '../../utils/types';
 import PeopleCard from '../PeopleCard/PeopleCard';
 import Empty from '../Empty/Empty';
 import Details from '../Details/Details';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { getPeople } from '../../actions/getPeople';
 import Pagination from '../Pagination/Pagination';
+import Spinner from '../Spinner/Spinner';
 
 async function Main({ search, page, details }: QueryParams) {
   const data = await getPeople(search, page);
@@ -26,7 +27,11 @@ async function Main({ search, page, details }: QueryParams) {
         <article
           className={`${styles.details} ${details ? styles.active : ''}`}
         >
-          {details ? <Details character={details} /> : null}
+          {details ? (
+            <Suspense fallback={<Spinner />}>
+              <Details character={details} />
+            </Suspense>
+          ) : null}
         </article>
       </main>
       <Pagination

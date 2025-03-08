@@ -12,7 +12,7 @@ export async function getPlanet(character: string) {
     });
     const planet: IPlanet = await planetRes.json();
 
-    return { planet };
+    return planet;
   } catch {
     throw new Error('Failed to fetch planet data');
   }

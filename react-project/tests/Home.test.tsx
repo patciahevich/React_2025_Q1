@@ -5,7 +5,7 @@ import useSelected from '../src/hooks/useSelected';
 import { swapiApi } from '../src/api/swapiApi';
 import { mockPeopleData } from '../src/utils/mockData';
 import Home from '../app/page';
-import React from 'react';
+import React, { act, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { configureStore, Store, UnknownAction } from '@reduxjs/toolkit';
 import selectedReducer from '../src/store/selectedSlice';
@@ -60,14 +60,18 @@ beforeEach(() => {
   });
 });
 describe('Tests for the Home  page: ', () => {
-  it('render the Home page', () => {
-    render(
-      <Provider store={store}>
-        <ThemeProvider>
-          <Home />
-        </ThemeProvider>
-      </Provider>
-    );
+  it('render the Home page', async () => {
+    await act(async () => {
+      render(
+        <Provider store={store}>
+          <ThemeProvider>
+            <Suspense>
+              <Home />
+            </Suspense>
+          </ThemeProvider>
+        </Provider>
+      );
+    });
 
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });

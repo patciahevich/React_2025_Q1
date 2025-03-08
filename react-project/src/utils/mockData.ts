@@ -1,6 +1,50 @@
 import { IPlanet } from 'swapi-ts/src/SWApi';
 import { ServerResponse } from './types';
 
+export const emptyData: ServerResponse = {
+  count: 0,
+  next: 'https://swapi.dev/api/people/?page=3',
+  previous: 'https://swapi.dev/api/people/?page=1',
+  results: [],
+};
+
+export const mockPrevData: ServerResponse = {
+  count: 0,
+  next: 'https://swapi.dev/api/people/?page=3',
+  previous: null,
+  results: [
+    {
+      name: 'Luke Skywalker',
+      height: '172',
+      mass: '77',
+      hair_color: 'blond',
+      skin_color: 'fair',
+      eye_color: 'blue',
+      birth_year: '19BBY',
+      gender: 'male',
+      homeworld: 'https://swapi.dev/api/planets/1/',
+      films: [
+        'https://swapi.dev/api/films/1/',
+        'https://swapi.dev/api/films/2/',
+        'https://swapi.dev/api/films/3/',
+        'https://swapi.dev/api/films/6/',
+      ],
+      species: [],
+      vehicles: [
+        'https://swapi.dev/api/vehicles/14/',
+        'https://swapi.dev/api/vehicles/30/',
+      ],
+      starships: [
+        'https://swapi.dev/api/starships/12/',
+        'https://swapi.dev/api/starships/22/',
+      ],
+      created: new Date('2014-12-09T13:50:51.644000Z'),
+      edited: new Date('2014-12-20T21:17:56.891000Z'),
+      url: 'https://swapi.dev/api/people/1/',
+    },
+  ],
+};
+
 export const mockPeopleData: ServerResponse = {
   count: 82,
   next: 'https://swapi.dev/api/people/?page=3',

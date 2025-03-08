@@ -5,11 +5,11 @@ import React from 'react';
 async function Details({ character }: { character: string | null }) {
   if (!character) return null;
 
-  const { planet: planetData } = await getPlanet(character);
+  const planet = await getPlanet(character);
 
-  if (!planetData) return null;
+  if (!planet) return null;
 
-  return <Planet data={planetData} />;
+  return <Planet data={planet} />;
 }
 
 export default Details;
