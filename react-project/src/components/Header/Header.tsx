@@ -6,6 +6,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import useSearchFromLS from '../../hooks/useSearchFromLS';
 import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton';
+import { useTheme } from '../../hooks/useTheme';
 
 const KEY = 'searchValue';
 
@@ -14,6 +15,7 @@ function Header() {
   const { setParams } = useQueryParams();
   const { initialValue } = useSearchFromLS(KEY);
   const [searchValue, setSearchValue] = useState(initialValue);
+  const { theme } = useTheme();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
@@ -29,7 +31,7 @@ function Header() {
   }
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${styles[theme]}`}>
       <ThemeToggleButton />
       <h1>STAR WARS API</h1>
       <div className={styles.logo} />
