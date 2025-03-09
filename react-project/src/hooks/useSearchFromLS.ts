@@ -1,12 +1,13 @@
+'use client';
 import { useEffect } from 'react';
 import { useQueryParams } from './useQueryParams';
 import useLocalStorage from './useLocalStorage';
 
 function useSearchFromLS(key: string) {
   const [savedValue] = useLocalStorage(key, '');
-  const { query, setParams } = useQueryParams();
+  const { searchParams, setParams } = useQueryParams();
 
-  const initialValue = query.search ?? savedValue;
+  const initialValue = searchParams?.get('search') ?? savedValue;
 
   useEffect(() => {
     setParams({

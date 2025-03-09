@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -18,7 +19,9 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [initialValue, setValue] = useLocalStorage(KEY, 'light');
-  const [theme, setTheme] = useState<ThemeContextType['theme']>(initialValue);
+  const [theme, setTheme] = useState<ThemeContextType['theme']>(
+    initialValue as ThemeContextType['theme']
+  );
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));

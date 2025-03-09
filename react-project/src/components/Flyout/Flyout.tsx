@@ -1,3 +1,5 @@
+'use client';
+
 import useSelected from '../../hooks/useSelected';
 import { useTheme } from '../../hooks/useTheme';
 import styles from './Flyout.module.scss';

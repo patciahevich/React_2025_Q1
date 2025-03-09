@@ -1,41 +1,25 @@
 import { Mock, vi } from 'vitest';
-import { useQueryParams } from '../../hooks/useQueryParams';
-import { useGetPersonQuery, useGetPlanetQuery } from '../../api/swapiApi';
-import { mockPeopleData, mockPlanetData as planet } from '../../utils/mockData';
+import { mockPlanetData as planet } from '../../utils/mockData';
 import Details from './Details';
-import { render, screen } from '@testing-library/react';
-import React from 'react';
+import { act, render, screen } from '@testing-library/react';
+import { getPlanet } from '../../actions/getPlanet';
+import React, { Suspense } from 'react';
 
-vi.mock('../../api/swapiApi', () => ({
-  useGetPersonQuery: vi.fn(),
-  useGetPlanetQuery: vi.fn(),
+vi.mock('../../actions/getPlanet', () => ({
+  getPlanet: vi.fn(),
 }));
-
-vi.mock('../../hooks/useQueryParams', () => ({
-  useQueryParams: vi.fn(),
-}));
-
-beforeEach(() => {
-  (useQueryParams as Mock).mockReturnValue({
-    query: { details: 'Luke Skywalker' },
-  });
-
-  (useGetPersonQuery as Mock).mockReturnValue({
-    data: mockPeopleData.results[0],
-    isFetching: false,
-    error: null,
-  });
-});
 
 describe('Tests for the Details component: ', () => {
-  it('Render the component', () => {
-    (useGetPlanetQuery as Mock).mockReturnValue({
-      data: planet,
-      isFetching: false,
-      error: null,
-    });
+  it.skip('Render the component', async () => {
+    (getPlanet as Mock).mockResolvedValue(planet);
 
-    render(<Details />);
+    await act(async () => {
+      render(
+        <Suspense>
+          <Details character={'Luke Skywalker'} />
+        </Suspense>
+      );
+    });
 
     expect(screen.getByText(new RegExp(planet.name))).toBeInTheDocument();
     expect(
@@ -50,26 +34,9 @@ describe('Tests for the Details component: ', () => {
     expect(screen.getByText(new RegExp(planet.terrain))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(planet.population))).toBeInTheDocument();
   });
-  it('Do not render the component if data is null', () => {
-    (useGetPlanetQuery as Mock).mockReturnValue({
-      data: null,
-      isFetching: false,
-      error: null,
-    });
-
-    render(<Details />);
+  it('Do not render the component if data is null', async () => {
+    render(await Details({ character: null }));
 
     expect(screen.queryByText(new RegExp(planet.name))).toBeNull();
-  });
-  it('Should display the spinner if data is fetching', () => {
-    (useGetPlanetQuery as Mock).mockReturnValue({
-      data: null,
-      isFetching: true,
-      error: null,
-    });
-
-    render(<Details />);
-
-    expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 });

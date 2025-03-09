@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Pagination.module.scss';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useTheme } from '../../hooks/useTheme';
@@ -7,9 +9,10 @@ type PaginationProps = {
   nextPage: null | string;
   prevPage: null | string;
 };
+
 function Pagination({ nextPage, prevPage }: PaginationProps) {
-  const { query, setParam } = useQueryParams();
-  const page = Number(query.page) || 1;
+  const { searchParams, setParam } = useQueryParams();
+  const page = Number(searchParams?.get('page')) || 1;
   const { theme } = useTheme();
 
   function setPage(page: number) {

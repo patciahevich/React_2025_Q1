@@ -19,14 +19,19 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "plugins": [{ "name": "next" }]
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "./src",
     "./dist/types/**/*.ts",
     "./next-env.d.ts",
+    "./src",
     "tests/MainPage.tests.tsx",
-    "tests/NotFound.tests.tsx"
+    "tests/NotFound.tests.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["./node_modules"]
 }

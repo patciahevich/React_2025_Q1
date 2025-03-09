@@ -4,7 +4,7 @@
   width: 100%;
   height: 100px;
 
-  padding: 0 60px;
+  padding: 20px 60px;
 
   display: grid;
   grid-template-columns: 200px 1fr 50px;
@@ -12,11 +12,17 @@
   grid-template-areas: ' logo search theme';
   align-items: center;
   gap: 30px;
+  &.dark {
+    background-color: black;
+    & ~ main {
+      background-color: black;
+    }
+  }
 
   h1 {
     grid-area: logo;
 
-    font-size: 30px;
+    font-size: 25px;
     color: vars.$yellow;
     font-family: vars.$jedi;
     letter-spacing: 0.2rem;
