@@ -1,0 +1,40 @@
+@import url('./styles/main.scss');
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  width: 100%;
+  text-align: center;
+  color: red;
+}
+
+a {
+  width: auto;
+  height: 60px;
+
+  padding: 20px;
+
+  background-color: rgb(64, 87, 42);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+
+  transform: scale(1);
+  transition: all 0.4s;
+}
+
+a:hover {
+  transform: scale(1.1);
+}
+
+nav {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}

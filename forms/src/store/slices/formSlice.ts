@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FormData } from '../../utils/types';
 
-interface CounterState {
+interface FormState {
   allForms: Array<FormData>;
 }
 
-const initialState: CounterState = {
+const initialState: FormState = {
   allForms: [],
 };
 
-const counterSlice = createSlice({
+const formSlice = createSlice({
   name: 'forms',
   initialState,
   reducers: {
@@ -18,5 +19,5 @@ const counterSlice = createSlice({
   },
 });
 
-export const { add } = counterSlice.actions;
-export default counterSlice.reducer;
+export const { add } = formSlice.actions;
+export default formSlice.reducer;
