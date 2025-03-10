@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "cd .. && husky forms.husky"
+    "prepare": "cd .. && husky forms/.husky"
   },
   "dependencies": {
     "react": "^19.0.0",
