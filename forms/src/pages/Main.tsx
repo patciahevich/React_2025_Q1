@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import useForms from '../hooks/useForms';
-import { FormData } from '../utils/types';
+import CardList from '../components/CardList/CardList';
 
 function Main() {
-  const { forms } = useForms();
+  const { hasForms } = useForms();
 
   return (
     <div className="wrapper">
@@ -12,13 +12,7 @@ function Main() {
         <Link to="/controlled">Controlled form</Link>
         <Link to="/uncontrolled">Uncontrolled form</Link>
       </nav>
-      <main>
-        {forms.length ? (
-          forms.map((form: FormData) => <p key={form.name}>{form.name}</p>)
-        ) : (
-          <h2>Please, fill the form</h2>
-        )}
-      </main>
+      <main>{hasForms() ? <CardList /> : <h2>Please, fill the form</h2>}</main>
     </div>
   );
 }

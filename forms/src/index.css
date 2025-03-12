@@ -27,6 +27,14 @@ nav {
   gap: 30px;
 }
 
+main {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+}
+
 p {
   color: red;
   font-size: 12px;
@@ -92,7 +100,40 @@ button:active {
   transform: scale(0.9);
 }
 
-img {
+button:disabled {
+  cursor: not-allowed;
+
+  background-color: rgb(43, 57, 29);
+  color: rgb(165, 170, 165);
+}
+
+button:disabled:hover {
+  transform: none;
+}
+
+form img {
   width: 150px;
   height: auto;
+}
+
+article {
+  width: 250px;
+  height: auto;
+
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  border: 1px solid green;
+}
+
+article.new {
+  border: 5px solid greenyellow;
+}
+
+article p {
+  color: black;
+  font-size: 16px;
 }

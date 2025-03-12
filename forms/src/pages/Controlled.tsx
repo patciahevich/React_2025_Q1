@@ -1,20 +1,24 @@
 import { useForm } from 'react-hook-form';
-import { FormData } from '../utils/types';
+import { SubmitData } from '../utils/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from '../utils/validationSchema';
 import { useState } from 'react';
 import convertFileToBase64 from '../utils/convertFile';
+import useForms from '../hooks/useForms';
+import { useNavigate } from 'react-router-dom';
 
 function Controlled() {
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(formSchema),
   });
+
+  const { addToControlled } = useForms();
+  const navigate = useNavigate();
 
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -33,13 +37,9 @@ function Controlled() {
     }
   };
 
-  const resetImage = function () {
-    setValue('image', undefined);
-    setPreview(null);
-  };
-
-  const onSubmit = async (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: SubmitData) => {
+    addToControlled({ ...data, image: preview as string });
+    navigate('/');
   };
 
   return (
@@ -97,11 +97,6 @@ function Controlled() {
         </label>
         {errors.image && <p>{errors.image.message}</p>}
         {preview && <img src={preview} alt="preview" />}
-        {preview && (
-          <button type="button" onClick={resetImage}>
-            Delete the file
-          </button>
-        )}
 
         <label>
           <span>I accept Terms and Conditions agreement</span>

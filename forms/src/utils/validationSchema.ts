@@ -56,7 +56,7 @@ export const formSchema = yup.object().shape({
     .mixed<FileList>()
     .test(
       'required',
-      'Pleas, add the image',
+      'Please, add the image',
       (value) => value instanceof FileList && value.length > 0
     )
     .test(
