@@ -3,6 +3,9 @@ export type FormData = {
   age: number;
   email: string;
   password: string;
-  gender: string;
+  confirmPassword: string;
   country: string;
+  gender: string;
+  image?: FileList;
+  terms?: boolean;
 };
