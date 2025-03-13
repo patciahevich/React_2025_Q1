@@ -51,7 +51,7 @@ export const formSchema = yup.object().shape({
     .required('You should confirm your password')
     .oneOf([yup.ref('password')], 'Passwords should match'),
   country: yup.string().required('Country is required'),
-  gender: yup.string().required(),
+  gender: yup.string().required('Please, choose gender'),
   image: yup
     .mixed<FileList>()
     .test(

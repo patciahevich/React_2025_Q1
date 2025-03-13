@@ -3,15 +3,15 @@ import { SubmitData } from '../utils/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from '../utils/validationSchema';
 import { useState } from 'react';
-import convertFileToBase64 from '../utils/convertFile';
 import useForms from '../hooks/useForms';
 import { useNavigate } from 'react-router-dom';
+import { handleFileUpload } from '../utils/helpers';
 
 function Controlled() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(formSchema),
@@ -21,21 +21,6 @@ function Controlled() {
   const navigate = useNavigate();
 
   const [preview, setPreview] = useState<string | null>(null);
-
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      try {
-        const base64String = await convertFileToBase64(file);
-        setPreview(base64String);
-      } catch (error) {
-        console.warn(error);
-      }
-    }
-  };
 
   const onSubmit = async (data: SubmitData) => {
     addToControlled({ ...data, image: preview as string });
@@ -92,7 +77,7 @@ function Controlled() {
           <input
             type="file"
             {...register('image')}
-            onChange={handleFileUpload}
+            onChange={(e) => handleFileUpload(e, setPreview)}
           />
         </label>
         {errors.image && <p>{errors.image.message}</p>}
@@ -103,7 +88,9 @@ function Controlled() {
           <input type="checkbox" {...register('terms')} />
         </label>
         {errors.terms && <p>{errors.terms.message}</p>}
-        <button type="submit">submit form</button>
+        <button type="submit" disabled={!isValid}>
+          submit form
+        </button>
       </form>
     </div>
   );
