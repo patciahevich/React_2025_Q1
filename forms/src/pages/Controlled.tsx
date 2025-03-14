@@ -13,7 +13,7 @@ function Controlled() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: yupResolver(formSchema),
   });
 
@@ -60,17 +60,14 @@ function Controlled() {
         <input type="text" {...register('country')} placeholder="country" />
         {errors.country && <p>{errors.country.message}</p>}
 
-        <div className="gender">
-          <label>
-            <input type="radio" value="male" {...register('gender')} />
-            <span>Male</span>
-          </label>
-
-          <label>
-            <input type="radio" value="female" {...register('gender')} />
-            <span>Female</span>
-          </label>
-        </div>
+        <select defaultValue="" name="gender">
+          <option value="" disabled>
+            -- Gender --
+          </option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
         {errors.gender && <p>{errors.gender.message}</p>}
         <label>
           <span>Please, add the image</span>
